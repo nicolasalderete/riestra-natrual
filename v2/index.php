@@ -2,8 +2,10 @@
 
     include('template/render.php');
 
+    $title = "Riestra Natural"
+    headHtml($title);
 
-    headHtml('Riestra Natural');
+    menu();
 
     content();
 
