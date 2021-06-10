@@ -1,5 +1,5 @@
 <?php
-    function headHtml(string $title) {
+    function headHtml($title) {
 ?>
     <!DOCTYPE html>
         <html lang="en">
