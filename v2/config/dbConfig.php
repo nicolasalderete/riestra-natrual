@@ -1,7 +1,7 @@
 <?php
     $dbconn = pg_connect($_ENV["DATABASE_URL"])
     or die('No se ha podido conectar: ' . pg_last_error());
-
+/*
     // Realizando una consulta SQL
     $query = 'SELECT * FROM usuarios';
     $result = pg_query($query) or die('La consulta fallo: ' . pg_last_error());
@@ -22,5 +22,5 @@
 
     // Cerrando la conexión
     pg_close($dbconn);
-
+*/
 ?>
