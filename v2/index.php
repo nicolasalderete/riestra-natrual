@@ -2,7 +2,7 @@
 
     include('template/render.php');
 
-    $title = "Riestra Natural"
+    $title = "Riestra Natural";
     headHtml($title);
 
     menu();
