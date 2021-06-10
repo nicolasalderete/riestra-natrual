@@ -15,7 +15,7 @@
     <?php 
         menu();
 
-        $resultado = mysqli_query($conexion, "SELECT * FROM productos");
+        $resultado = pg_query("SELECT * FROM productos");
     ?>
         
     <main class="container mt-5">
@@ -33,7 +33,7 @@
                 <label for="exampleFormControlSelect2">Seleccione los productos de la oferta</label>
                 <select multiple class="form-control" id="exampleFormControlSelect2">
                     <?php 
-                        while ($fila = mysqli_fetch_assoc($resultado)) {
+                        while ($fila = pg_fetch_assoc($resultado)) {
                             echo "<option value='".$fila['id']."'>".$fila['nombre']."</option>";
                         }
                     ?>

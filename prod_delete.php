@@ -10,8 +10,8 @@
         } else {
             $idProd = filter_var($_GET["id"], FILTER_SANITIZE_STRING);
             $sqldelete = "DELETE FROM productos where id = '$idProd'";
-            if (mysqli_query($conexion, $sqldelete)) {
-                mysqli_close($conexion);
+            if (pg_query($sqldelete)) {
+                pg_close($db);
                 $mensaje = "Producto eliminado";
                 header("Location:prod_admin.php?success=$mensaje");
             } else {

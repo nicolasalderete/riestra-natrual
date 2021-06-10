@@ -10,8 +10,8 @@
         } else {
             $idCat = filter_var($_GET["id"], FILTER_SANITIZE_STRING);
             $sqlupdate = "DELETE FROM categorias where id = '$idCat'";
-            if (mysqli_query($conexion, $sqlupdate)) {
-                mysqli_close($conexion);
+            if (pg_query($sqlupdate)) {
+                pg_close($db);
                 $mensaje = "Categoria eliminada";
                 header("Location:cat_admin.php?success=$mensaje");
             } else {

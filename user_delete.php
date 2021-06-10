@@ -10,8 +10,8 @@
         } else {
             $idUsuario = filter_var($_GET["id"], FILTER_SANITIZE_STRING);
             $sqlupdate = "DELETE FROM usuarios where id_usuario = '$idUsuario'";
-            if (mysqli_query($conexion, $sqlupdate)) {
-                mysqli_close($conexion);
+            if (pg_query($sqlupdate)) {
+                pg_close($db);
                 $mensaje = "Usuario eliminado";
                 header("Location:user_admin.php?success=$mensaje");
             } else {

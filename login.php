@@ -20,17 +20,17 @@
         $Message = "Debe completar los campos usuario y/o clave";
         header("Location:index.php?error={$Message}");
     } else {
-        $resultado = mysqli_query($conexion, "SELECT nombre as nombre,  apellido as apellido, clave as clave FROM usuarios WHERE usuario = '$username'");
+        $resultado = pg_query("SELECT nombre as nombre,  apellido as apellido, clave as clave FROM usuarios WHERE usuario = '$username'");
         
-        while($fila = mysqli_fetch_assoc($resultado)) {
+        while($fila = pg_fetch_array($resultado)) {
             $clavebdd = $fila['clave'];
         }
 
         if (password_verify($password, $clavebdd)) {
             session_start();
 
-            $resultado = mysqli_query($conexion, "SELECT nombre as nombre,  apellido as apellido FROM usuarios WHERE usuario = '$username'");
-            $fila = mysqli_fetch_assoc($resultado);
+            $resultado = pg_query("SELECT nombre as nombre,  apellido as apellido FROM usuarios WHERE usuario = '$username'");
+            $fila = pg_fetch_array($resultado);
 
             $_SESSION["usuario"] = $fila['nombre']. " " .$fila['apellido'];
             $_SESSION["loggedIn"] = true;
@@ -41,7 +41,7 @@
             header("Location:index.php?error={$Message}");
         }
     }
-    mysqli_close($conexion);
+    pg_close($db);
 
     
 ?>

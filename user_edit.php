@@ -23,12 +23,12 @@
             $idUsuario = filter_var($_GET["id"], FILTER_SANITIZE_STRING);
             
             $consulta = "select * from usuarios where id_usuario = '$idUsuario'";
-            $resultado = mysqli_query($conexion, $consulta)
+            $resultado = pg_query($consulta)
             or header("Location:error");
 
-            mysqli_close($conexion);
+            pg_close($db);
 
-            $fila = mysqli_fetch_assoc($resultado);
+            $fila = pg_fetch_assoc($resultado);
         }
     ?>
         

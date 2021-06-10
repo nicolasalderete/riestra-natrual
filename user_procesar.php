@@ -34,9 +34,9 @@
         
                 $existeusuario = "select count(usuario) as nuevo from usuarios where usuario = '$usuario'";
             
-                $resultado = mysqli_query($conexion, $existeusuario);
+                $resultado = pg_query($existeusuario);
         
-                while ($a = mysqli_fetch_assoc($resultado)) {
+                while ($a = pg_fetch_assoc($resultado)) {
                     $existe = $a['nuevo'];
                 }
         
@@ -49,9 +49,9 @@
                 $clavehash = password_hash($clave, PASSWORD_BCRYPT);
                 $altausuario = "INSERT INTO usuarios (nombre, apellido, usuario, clave) values ('$nombre', '$apellido', '$usuario', '$clavehash')";
                 echo $altausuario;
-                $resultado = mysqli_query($conexion, $altausuario) or die('No se ha podido ejecutar la consulta.');
+                $resultado = pg_query($altausuario) or die('No se ha podido ejecutar la consulta.');
                 
-                mysqli_close($conexion);
+                pg_close($db);
                 
                 if ($resultado) {
                     $Message = "Se ha creado el usuario ".$nombre."";
@@ -70,9 +70,9 @@
 
                 $existeusuario = "select * from usuarios where usuario = '$usuario'";
             
-                $resultado = mysqli_query($conexion, $existeusuario);
+                $resultado = pg_query($existeusuario);
         
-                while ($a = mysqli_fetch_assoc($resultado)) {
+                while ($a = pg_fetch_assoc($resultado)) {
                     $existe = $a['id_usuario'];
                 }
         
@@ -83,9 +83,9 @@
                 } else {
                     $clavehash = password_hash($clave, PASSWORD_BCRYPT);
                     $altausuario = "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', usuario='$usuario', clave='$clave' WHERE id_usuario='$userId'";
-                    $resultado = mysqli_query($conexion, $altausuario) or die('No se ha podido ejecutar la consulta.');
+                    $resultado = pg_query($altausuario) or die('No se ha podido ejecutar la consulta.');
                     
-                    mysqli_close($conexion);
+                    pg_close($db);
                     
                     if ($resultado) {
                         $Message = "Se ha actualizado el usuario ".$nombre."";

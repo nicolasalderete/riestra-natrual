@@ -16,10 +16,10 @@
         menu();
 
         $consulta = 'SELECT * FROM ofertas';
-        $resultado = mysqli_query($conexion, $consulta)
+        $resultado = pg_query($consulta)
             or die('No se ha podido ejecutar la consulta.');
 
-        mysqli_close($conexion);
+        pg_close($db);
     ?>
         
     <main class="container mt-5">
@@ -29,7 +29,7 @@
         <?php else: ?>
 
             <?php 
-                while ($fila = mysqli_fetch_assoc($resultado)) {
+                while ($fila = pg_fetch_assoc($resultado)) {
                     echo "<div class='jumbotron'>";
                         echo "<div class='container'>";
                             echo "<h1 class='display-4'>".$fila['nombre']."</h1>";

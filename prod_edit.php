@@ -23,16 +23,16 @@
             $prodId = filter_var($_GET["id"], FILTER_SANITIZE_STRING);
             
             $queryProducto = "select * from productos where id = '$prodId'";
-            $productoResult = mysqli_query($conexion, $queryProducto)
+            $productoResult = pg_query($queryProducto)
             or header("Location:error");
 
-            $fila = mysqli_fetch_assoc($productoResult);
+            $fila = pg_fetch_assoc($productoResult);
 
             $consulta = 'SELECT * FROM categorias';
-            $resultado = mysqli_query($conexion, $consulta)
+            $resultado = pg_query($consulta)
             or die('No se ha podido ejecutar la consulta.');
             
-            mysqli_close($conexion);
+            pg_close($db);
         }
     ?>
         
@@ -53,7 +53,7 @@
                 <label for="exampleFormControlSelect1">Categoría</label>
                 <select class="form-control" id="exampleFormControlSelect1" name="categoria" >
                     <?php 
-                        while ($option = mysqli_fetch_assoc($resultado)) {
+                        while ($option = pg_fetch_assoc($resultado)) {
                             if ($categoriaSearch == $fila['id']) {
                                 $isSelected = "selected";
                             } else {

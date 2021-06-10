@@ -31,12 +31,12 @@
                 $consulta = $consulta." where categoriaid='$categoriaSearch'";
             }
         }
-        $resultado = mysqli_query($conexion, $consulta)
+        $resultado = pg_query($consulta)
             or header("location: error.html?'$consulta'");
 
         $queryCat = 'SELECT * FROM categorias';
     
-        $listCat = mysqli_query($conexion, $queryCat)
+        $listCat = pg_query($queryCat)
             or die('No se ha podido ejecutar la consulta.');
 
     ?>
@@ -55,7 +55,7 @@
                             <select class="form-control" name="categoria" id="inlineFormInputName">
                                 <option value="">Seleccione una categoria</option>
                                 <?php 
-                                    while ($fila = mysqli_fetch_assoc($listCat)) {
+                                    while ($fila = pg_fetch_assoc($listCat)) {
                                         if ($categoriaSearch == $fila['id']) {
                                             $isSelected = "selected";
                                         } else {
@@ -81,7 +81,7 @@
             <div class="container mt-5">
                 <div class="row row-cols-1 row-cols-md-3">
                     <?php 
-                        while ($fila = mysqli_fetch_assoc($resultado)) {
+                        while ($fila = pg_fetch_assoc($resultado)) {
                             echo "<div class='col mb-4'>";
                                 echo "<div class='card'>";
                                     echo "<img src=img/prod/".$fila['imagen']." class='card-img-top' alt='Cereal'>";
@@ -99,7 +99,7 @@
     </main>
 
     <?php
-        mysqli_close($conexion); 
+        pg_close($db); 
         footer();
     ?>
 

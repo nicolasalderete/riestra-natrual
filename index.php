@@ -22,7 +22,7 @@
         
 
         $queryProducto = "select * from productos where destacado=1 limit 3";
-        $productoResult = mysqli_query($conexion, $queryProducto)
+        $productoResult = pg_query($queryProducto)
     ?>
         
     <main>
@@ -77,7 +77,7 @@
         <div class="container marketing">
 
             <div class="row">
-                <?php while ($fila = mysqli_fetch_assoc($productoResult)) { ?>
+                <?php while ($fila = pg_fetch_array($productoResult)) { ?>
                     <div class="col-lg-4">
                         <img src="./img/prod/<?php echo $fila['imagen']?>" alt="Cereal" class="rounded-circle">
                         <title><?php echo $fila['nombre']?></title>

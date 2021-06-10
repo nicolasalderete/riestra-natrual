@@ -16,10 +16,10 @@
     <?php 
         menu();
         $consulta = 'SELECT * FROM ofertas';
-        $resultado = mysqli_query($conexion, $consulta)
+        $resultado = pg_query($consulta)
             or die('No se ha podido ejecutar la consulta.');
 
-        mysqli_close($conexion);
+        pg_close($db);
     ?>
         
     <main class="container mt-5">
@@ -40,7 +40,7 @@
                 </thead>
                 <tbody>
                     <?php 
-                        while ($fila = mysqli_fetch_assoc($resultado)) {
+                        while ($fila = pg_fetch_assoc($resultado)) {
                             echo "<tr>";
                             echo "<th scope='row'>".$fila['id']."</th>";
                                 echo "<td>".$fila['nombre']."</td>";

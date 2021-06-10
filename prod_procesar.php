@@ -63,9 +63,9 @@
             }
             if ($archivo_subido) {
                 $altaproducto = "INSERT INTO productos (nombre, descripcion, categoriaid, precio, destacado, imagen) values ('$nombre', '$descripcion', '$categoria', '$precio', $destacado, '$imagen')";
-                $resultado = mysqli_query($conexion, $altaproducto) or die('No se ha podido ejecutar la consulta.');
+                $resultado = pg_query($altaproducto) or die('No se ha podido ejecutar la consulta.');
                 
-                mysqli_close($conexion);
+                pg_close($db);
         
                 if ($resultado) {
                     $Message = "Se ha creado el producto ".$nombre."";
@@ -86,9 +86,9 @@
 
             $prodId = filter_var($_POST["prodId"], FILTER_SANITIZE_STRING);
             $existe_producto = "select * from productos where id='$prodId'";
-            $resultado_producto = mysqli_query($conexion, $existe_producto);
+            $resultado_producto = pg_query($existe_producto);
     
-            while ($a = mysqli_fetch_assoc($resultado_producto)) {
+            while ($a = pg_fetch_assoc($resultado_producto)) {
                 $existe = $a['id'];
             }
 
@@ -98,8 +98,8 @@
                 } else {
                     $update_producto = "UPDATE productos SET nombre = '$nombre', descripcion = '$descripcion', categoriaid = '$categoria', precio = '$precio', destacado = $destacado WHERE id='$prodId'";
                 }
-                $resultado = mysqli_query($conexion, $update_producto) or die('No se ha podido ejecutar la consulta.');
-                mysqli_close($conexion);
+                $resultado = pg_query($update_producto) or die('No se ha podido ejecutar la consulta.');
+                pg_close($db);
                 if ($resultado) {
                     $Message = "Se ha actualizado el producto ".$nombre."";
                     header("Location:prod_admin.php?success={$Message}");

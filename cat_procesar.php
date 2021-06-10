@@ -23,9 +23,9 @@
                 header("Location:cat_alta.php?error={$Message}");
             } else {
                 $altausuario = "INSERT INTO categorias (nombre, descripcion) values ('$nombre', '$descripcion')";
-                $resultado = mysqli_query($conexion, $altausuario) or die('No se ha podido ejecutar la consulta.');
+                $resultado = pg_query($altausuario) or die('No se ha podido ejecutar la consulta.');
                 
-                mysqli_close($conexion);
+                pg_close($db);
         
                 if ($resultado) {
                     $Message = "Se ha creado la categoria ".$nombre."";
@@ -44,8 +44,8 @@
                 header("Location:cat_edit.php?id=".$catId."&error={$Message}");
             } else {
                 $actualizarCategoria = "UPDATE categorias SET nombre='$nombre', descripcion='$descripcion' WHERE id='$catId'";
-                if (mysqli_query($conexion, $actualizarCategoria)) {
-                    mysqli_close($conexion);
+                if (pg_query($actualizarCategoria)) {
+                    pg_close($db);
                     $Message = "Se ha actualizado la categoria ".$nombre."";
                     header("Location:cat_admin.php?success={$Message}&m='$nombre'&n='$descripcion'");
                 } else {

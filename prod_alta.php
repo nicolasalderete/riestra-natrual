@@ -19,10 +19,10 @@
         
         $consulta = 'SELECT * FROM categorias';
         
-        $resultado = mysqli_query($conexion, $consulta)
+        $resultado = pg_query($consulta)
             or die('No se ha podido ejecutar la consulta.');
 
-        mysqli_close($conexion);
+        pg_close($db);
     ?>
         
     <main class="container mt-5">
@@ -42,7 +42,7 @@
                 <select class="form-control" id="exampleFormControlSelect1" name="categoria" >
                     <option disabled selected>Seleccione una categoria</option>
                     <?php 
-                        while ($fila = mysqli_fetch_assoc($resultado)) {
+                        while ($fila = pg_fetch_assoc($resultado)) {
                             echo "<option value=".$fila['id'].">".$fila['nombre']."</option>";
                         }
                     ?>
