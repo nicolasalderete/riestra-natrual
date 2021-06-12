@@ -26,7 +26,6 @@
             }
     
             if (password_verify($password, $clavebdd)) {
-                
     
                 $resultado = pg_query("SELECT nombre as nombre,  apellido as apellido FROM usuarios WHERE usuario = '$username'");
                 $fila = pg_fetch_array($resultado);
@@ -34,15 +33,13 @@
                 $_SESSION["usuario"] = $fila['nombre']. " " .$fila['apellido'];
                 $_SESSION["loggedIn"] = true;
                 $Message = "Bienvenido ".$_SESSION["usuario"]. "";
-                header("Location:index.php?success={$Message}");
+                header("Location:/?success={$Message}");
             } else {
                 $Message = "Usuario y/o clave inválidos";
-                header("Location:index.php?error={$Message}");
+                header("Location:/login.php?error={$Message}");
             }
         }
     }
     pg_close($db);
-
-
     
 ?>
