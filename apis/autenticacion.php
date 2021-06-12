@@ -19,7 +19,7 @@
             $Message = "Debe completar los campos usuario y/o clave";
             header("Location:/login.php?error={$Message}");
         } else {
-            $resultado = pg_query("SELECT nombre as nombre,  apellido as apellido, clave as clave FROM usuarios WHERE usuario = '$username'");
+            $resultado = pg_query("SELECT nombre,  apellido, clave FROM usuarios WHERE usuario = '$username'");
             
             while($fila = pg_fetch_array($resultado)) {
                 $clavebdd = $fila['clave'];
