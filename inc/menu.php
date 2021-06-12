@@ -52,17 +52,13 @@
             </ul>
 
             <!--Buscar productos -->
-            <form class="input-group mb-3 form-inline my-2 my-lg-0 input-lg ml-5 mr-auto" action="productos.php" method="GET">
-            <div class="input-group mb-3">
-                <input type="text" name="producto" class="form-control" placeholder="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-success" type="submit">Buscar</button>
-                </div>
-            </div>   
-                    
-                    
-                    
-                
+            <form class="input-group form-inline my-2 my-lg-0 input-lg ml-5 mr-auto" action="productos.php" method="GET">
+                <div class="input-group">
+                    <input type="text" name="producto" class="form-control" placeholder="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="submit">Buscar</button>
+                    </div>
+                </div>   
             </form>
             <!--Buscar productos -->
 
