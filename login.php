@@ -165,15 +165,15 @@ body {
         <div class="card card-signin my-5">
           <div class="card-body">
             <h5 class="card-title text-center">Iniciar sesión</h5>
-            <form class="form-signin">
+            <form class="form-signin" action="/apis/autenticacion.php" method="post">
               <div class="form-label-group">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                <label for="inputEmail">Email address</label>
+                <input type="text" name="usuario" id="inputEmail" class="form-control" placeholder="Usuario" required autofocus>
+                <label for="inputEmail">Usuario</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                <label for="inputPassword">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Clave" required>
+                <label for="inputPassword">Clave</label>
               </div>
 
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Entrar</button>
