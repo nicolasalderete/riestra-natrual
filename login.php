@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     
-    <?php include('inc/head.php'); ?>
+    <?php include('/inc/head.php'); ?>
+    
     <style>
       :root {
   --input-padding-x: 1.5rem;
@@ -10,8 +11,8 @@
 }
 
 body {
-  background: #007bff;
-  background: linear-gradient(to right, #0062E6, #33AEFF);
+  background: #6c757d;
+  background: linear-gradient(to right, #6c757d, #e9ecef);
 }
 
 .card-signin {
