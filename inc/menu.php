@@ -54,7 +54,7 @@
             <!--Buscar productos -->
             <form class="form-inline my-2 my-lg-0" action="productos.php" method="GET">
                 <input class="form-control mr-sm-2" type="text" placeholder="Buscar producto" name="producto">
-                <button class="btn btn-primary ary my-2 my-sm-0" type="submit"> Buscar</button>
+                <button class="btn btn-primary ary my-2 my-sm-0" type="submit"> <i class="fas fa-search"></i></button>
             </form>
             <!--Buscar productos -->
 
