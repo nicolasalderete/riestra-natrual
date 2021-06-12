@@ -24,7 +24,7 @@
         </button>
         
         <div class="collapse navbar-collapse" id="navbarColor03">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav">
                 <li class="nav-item active">
                     <a class="nav-link" href="ofertas.php"><i class="fas fa-piggy-bank"></i> Ofertas
                     <span class="sr-only">(current)</span>
@@ -52,9 +52,9 @@
             </ul>
 
             <!--Buscar productos -->
-            <form class="form-inline my-2 my-lg-0" action="productos.php" method="GET">
+            <form class="form-inline my-2 my-lg-0 ml-5" action="productos.php" method="GET">
                 <input class="form-control mr-sm-2" type="text" placeholder="Buscar producto" name="producto">
-                <button class="btn btn-primary ary my-2 my-sm-0" type="submit"> <i class="fas fa-search"></i></button>
+                <button class="btn ary my-2 my-sm-0" type="submit"> <i class="fas fa-search"></i></button>
             </form>
             <!--Buscar productos -->
 
