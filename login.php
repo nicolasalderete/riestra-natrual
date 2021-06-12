@@ -167,7 +167,7 @@ body {
             <h5 class="card-title text-center">Iniciar sesión</h5>
             <form class="form-signin" action="/apis/autenticacion.php" method="post">
               <div class="form-label-group">
-                <input type="text" name="usuario" id="inputEmail" class="form-control" placeholder="Usuario" required autofocus>
+                <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Usuario" required autofocus>
                 <label for="inputEmail">Usuario</label>
               </div>
 
