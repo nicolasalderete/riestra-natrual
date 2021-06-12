@@ -18,52 +18,65 @@
     <?php 
         menu();
 
+        $queryOfertas = "select * from ofertas limit 3";
+        $ofertasResult = pg_query($queryOfertas);
 
-        
-
-        $queryProducto = "select * from productos where destacado=1 limit 3";
-        $productoResult = pg_query($queryProducto)
+        $queryProducto = "select * from productos where destacado='Y' limit 3";
+        $productoResult = pg_query($queryProducto);
     ?>
         
     <main>
         <!--Jumbotron -->
+        <?php if (pg_fetch_array($ofertasResult)) { ?>
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
             <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
             </ol>
+
+            
+
             <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="img/vinagres.jpg" class="d-block w-100" >
-                <div class="carousel-caption d-none d-md-block">
-                <!--<h5>Titulo 1</h5>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>-->
+                <div class="carousel-item active">
+                    <img src="img/vinagres.jpg" class="d-block w-100" >
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>
+                            <?php $ofertas = pg_fetch_array($ofertasResult)[1];
+                             echo $ofertas['precio'] ?>
+                        </h5>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/cremasdemano.jpg" class="d-block w-100" >
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>
+                            <?php $ofertas = pg_fetch_array($ofertasResult)[2];
+                             echo $ofertas['precio']; ?>
+                        </h5>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/protectorsolar.jpg" class="d-block w-100" >
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>
+                            <?php $ofertas = pg_fetch_array($ofertasResult)[3];
+                             echo $ofertas['precio']; ?>
+                        </h5>
+                    </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <img src="img/cremasdemano.jpg" class="d-block w-100" >
-                <div class="carousel-caption d-none d-md-block">
-                <!--<h5>Titulo 1</h5>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>-->
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="img/protectorsolar.jpg" class="d-block w-100" >
-                <div class="carousel-caption d-none d-md-block">
-               <!--<h5>Titulo 1</h5>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>-->
-                </div>
-            </div>
-            </div>
+
             <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Anterior</span>
             </a>
+
             <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Siguiente</span>
             </a>
+            <?php } ?>
         </div>
 
         <!--Fin jumbotron -->

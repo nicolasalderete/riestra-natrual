@@ -86,4 +86,7 @@ ALTER TABLE ofertas_por_productos
 
 ALTER TABLE productos
   ADD CONSTRAINT fk_categoria FOREIGN KEY (categoriaid) REFERENCES categorias (id);
+
+ALTER TABLE ofertas ADD COLUMN disponible varchar(1) DEFAULT 'Y';
+
 COMMIT;
