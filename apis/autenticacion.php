@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include('/inc/conexion.php');
+    include('../inc/conexion.php');
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
 
