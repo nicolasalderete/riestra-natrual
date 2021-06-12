@@ -52,7 +52,7 @@
             </ul>
 
             <!--Buscar productos -->
-            <form class="input-group form-inline my-2 my-lg-0 input-lg ml-5 mr-auto" action="productos.php" method="GET">
+            <form class="form-inline mr-auto ml-5" action="productos.php" method="GET">
                 <div class="input-group">
                     <input type="text" name="producto" class="form-control" placeholder="Search">
                     <div class="input-group-append">
