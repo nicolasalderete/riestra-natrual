@@ -65,7 +65,7 @@
             <?php else: ?>
                 <div class="nav-item dropleft">
                     <a class="nav-link" href="login.php" role="button"><i class="fas fa-user-lock"></i> Igresar</a>
-                    <a class="nav-link" href="login.php" role="button"><i class="fas fa-user-lock"></i> Registrarse</a>
+                    <a class="nav-link" href="registrarse.php" role="button"><i class="fas fa-user-lock"></i> Registrarse</a>
                 </div>
             <?php endif; ?>
         </div>
