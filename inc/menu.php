@@ -64,18 +64,8 @@
                 </div>
             <?php else: ?>
                 <div class="nav-item dropleft">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="dropdownMenuOffset" data-offset="10,20"><i class="fas fa-user-lock"></i> iniciar sesion</a>
-                    <form class="dropdown-menu p-4" aria-labelledby="dropdownMenuOffset" action="login.php" method="POST">
-                        <div class="form-group">
-                            <label for="exampleDropdownFormEmail2">Usuario</label>
-                            <input type="text" class="form-control" id="usuario" placeholder="Usuario" name="username" >
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleDropdownFormPassword2">Clave</label>
-                            <input type="password" class="form-control" id="password" placeholder="Clave" name="password" >
-                        </div>
-                        <button type="submit" class="btn btn-primary">Ingresar</button>
-                    </form>
+                    <a class="nav-link" href="login.php" role="button"><i class="fas fa-user-lock"></i> Igresar</a>
+                    <a class="nav-link" href="login.php" role="button"><i class="fas fa-user-lock"></i> Registrarse</a>
                 </div>
             <?php endif; ?>
         </div>
