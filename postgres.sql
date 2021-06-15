@@ -4,6 +4,9 @@ CREATE TABLE categorias (
   descripcion varchar(150) NOT NULL
 ) ;
 
+ALTER TABLE public.categorias
+    ADD COLUMN estado character varying(2) NOT NULL;
+
 INSERT INTO categorias (id, nombre, descripcion) VALUES
 (7, 'Despensa', 'Aceites & Aderezos, Caldos & Sopas, Endulzantes Naturales'),
 (9, 'Alimentos Naturales', 'Frutas Secas & Mas, Alfajores, Bombones & Mas, Barritas, Snacks, Galletitas & Mas, Cereales & Granolas,  Dulces, Mermeladas & Mas'),

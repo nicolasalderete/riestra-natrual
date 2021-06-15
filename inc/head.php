@@ -14,10 +14,10 @@
         <script src="https://kit.fontawesome.com/be65c86741.js" crossorigin="anonymous"></script>
 
         <!--Estilo propio-->
-        <link rel="stylesheet" href="css/estilo.css">
+        <link rel="stylesheet" href="/css/estilo.css">
         
         <!--Template -->
-        <link rel="stylesheet" href="css/flatly.min.css">
+        <link rel="stylesheet" href="/css/flatly.min.css">
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 

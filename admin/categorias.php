@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('inc/head.php'); ?>
+    <?php include('../inc/head.php'); ?>
 
     <?php 
         head();
     ?>
-    <?php include('inc/secure.php'); ?>
-    <?php include('inc/menu.php'); ?>
-    <?php include('inc/footer.php'); ?>
-    <?php include('inc/conexion.php'); ?>
+    <?php include('../inc/secure.php'); ?>
+    <?php include('../inc/menu.php'); ?>
+    <?php include('../inc/footer.php'); ?>
+    <?php include('../inc/conexion.php'); ?>
 </head>
 <body >
     
     <?php 
         menu();
         $consulta = 'SELECT * FROM categorias';
-        $resultado = pg_query($consulta)
-            or die('No se ha podido ejecutar la consulta.');
+        $resultado = pg_query($consulta) or die('No se ha podido ejecutar la consulta.');
 
         pg_close($db);
     ?>
         
     <main class="container mt-5">
         <h1 class="text-center">Alta, baja y modificación de categorías</h1>
-        <p><a href="cat_alta.php" class="btn btn-secondary"><i class="fas fa-plus-circle"></i> Nueva categoría</a></p>
+        <p><a href="/admin/categorias_alta.php" class="btn btn-secondary"><i class="fas fa-plus-circle"></i> Nueva categoría</a></p>
         <?php if (!$resultado): ?>
             <h1 class="text-center">No se encontraron resultados</h1> 
         <?php else: ?>
@@ -34,7 +33,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripcion</th>
-                        <th scope="col" style="width: 20%;">Acciones</th>
+                        <th scope="col" style="width: 20%;"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,12 +44,9 @@
                                 echo "<td>".$fila['nombre']."</td>";
                                 echo "<td>".$fila['descripcion']."</td>";
                                 echo "<td>";
-                                    echo "<a href='cat_edit.php?id=".$fila['id']."' class='btn'>";
+                                    echo "<a href='/admin/categorias_editar.php?id=".$fila['id']."' class='btn'>";
                                         echo "<i class='fas fa-pencil-alt'></i> Editar";
-                                    echo "</a> | ";
-                                    echo "<a href='cat_delete.php?id=".$fila['id']."' class='btn'>";
-                                        echo "<i class='fas fa-trash-alt'></i> Eliminar";
-                                    echo "</a>";
+                                    echo "</a> ";
                                 echo "</td>";
                             echo "</tr>";
                         }

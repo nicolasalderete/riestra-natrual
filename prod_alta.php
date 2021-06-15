@@ -19,8 +19,7 @@
         
         $consulta = 'SELECT * FROM categorias';
         
-        $resultado = pg_query($consulta)
-            or die('No se ha podido ejecutar la consulta.');
+        $resultado = pg_query($consulta) or die('No se ha podido ejecutar la consulta.');
 
         pg_close($db);
     ?>

@@ -26,25 +26,25 @@
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="ofertas.php"><i class="fas fa-piggy-bank"></i> Ofertas
+                    <a class="nav-link" href="/ofertas.php"><i class="fas fa-piggy-bank"></i> Ofertas
                     <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="productos.php"><i class="fas fa-store"></i> Productos</a>
+                    <a class="nav-link" href="/productos.php"><i class="fas fa-store"></i> Productos</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="ubicacion.php"><i class="fas fa-street-view"></i> Ubicación</a>
+                    <a class="nav-link" href="/ubicacion.php"><i class="fas fa-street-view"></i> Ubicación</a>
                 </li>
                 <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']): ?>
                     <!--Ver si esta logueado -->
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administración</a>
                         <div class="dropdown-menu">
-                        <a class="dropdown-item" href="prod_admin.php">Productos</a>
-                        <a class="dropdown-item" href="cat_admin.php">Categorias</a>
-                        <a class="dropdown-item" href="ofer_admin.php">Ofertas</a>
-                        <a class="dropdown-item" href="user_admin.php">Usuarios</a>
+                        <a class="dropdown-item" href="/admin/categorias.php">Categorias</a>
+                        <a class="dropdown-item" href="/admin/productos.php">Productos</a>
+                        <a class="dropdown-item" href="/admin/ofertas.php">Ofertas</a>
+                        <a class="dropdown-item" href="/admin/usuarios.php">Usuarios</a>
                         </div>
                     </li>
                     <!--Ver si esta logueado -->
@@ -64,14 +64,23 @@
 
             <?php if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']): ?>
                 <div class="nav-item ml-2">
-                    <?php echo $_SESSION['usuario'] ?> 
-                    <a class="nav-link btn btn-danger " href="logout.php"><i class="fas fa-sign-out-alt"></i></i></a>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a href="/user/carrito.php" class="nav-link"><i class="fas fa-shopping-cart"></i> 5</a>
+                        </li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> <?php echo $_SESSION['usuario'] ?></a>
+                            <div class="dropdown-menu">
+                                <a href="logout.php"><i class="fas fa-sign-out-alt ml-5"></i>Salir</i></a>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             <?php else: ?>
                 <div class="nav-item dropleft">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="login.php" role="button"><i class="fas fa-user-lock"></i> Igresar</a>
+                            <a class="nav-link" href="login.php" role="button"><i class="fas fa-user-lock"></i> Ingresar</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="registrarse.php" role="button"><i class="fas fa-user-lock"></i> Registrarse</a>

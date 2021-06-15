@@ -1,7 +1,115 @@
 <?php
-    include('inc/conexion.php');
+    include('../inc/conexion.php');
+
+
+    function verficarSiExisteUsuario($usuario) {
+        
+    }
+
+
+    function crearUsuario() {
+        if(empty($_POST["nombre"]) || 
+                empty($_POST["apellido"]) || 
+                empty($_POST["usuario"]) ||
+                empty($_POST["clave"])){
+
+            $error = "Por favor debe completar los campos obligatorios";
+            $Message = "Debe completar los campos obligatorios";
+            header("Location:/admin/usuarios_alta.php?error={$Message}");
+        } else {
+            $existeusuario = "select count(usuario) as nuevo from usuarios where usuario = '$usuario'";
+            $resultado = pg_query($existeusuario);
+            while ($a = pg_fetch_assoc($resultado)) {
+                $existe = $a['nuevo'];
+            }
+            if ($existe) {
+                $Message = "El usuario ya existe, elija otro usuario";
+                header("Location:/admin/usuarios_alta.php?error={$Message}");
+                pg_close($db);
+            } else {
+                $clavehash = password_hash($clave, PASSWORD_BCRYPT);
+                $altausuario = "INSERT INTO usuarios (nombre, apellido, usuario, clave) values ('$nombre', '$apellido', '$usuario', '$clavehash')";
+                echo $altausuario;
+                $resultado = pg_query($altausuario) or die('No se ha podido ejecutar la consulta.');
+                
+                pg_close($db);
+                
+                if ($resultado) {
+                    $Message = "Se ha creado el usuario ".$nombre."";
+                    header("Location:/admin/usuarios_alta?success={$Message}");
+                } else {
+                    $Message = "Error al crear el usuario";
+                    header("Location:/admin/usuarios_alta?error={$Message}");
+                }
+            }
+        }
+    }
+
+    function actualizarUsuario() {
+
+        if(empty($_POST["nombre"]) || 
+        empty($_POST["apellido"]) || 
+        empty($_POST["usuario"]) ||
+        empty($_POST["clave"])){
+
+            $error = "Por favor debe completar los campos obligatorios";
+            $Message = "Debe completar los campos obligatorios";
+            header("Location:/admin/usuarios_editar.php?error={$Message}");
+        } else {
+            $userId = filter_var($_POST["userId"], FILTER_SANITIZE_STRING);
+            $existeusuario = "select * from usuarios where id = '$usuario'";
+            $resultado = pg_query($existeusuario);
+
+            while ($a = pg_fetch_assoc($resultado)) {
+                $existe = $a['id_usuario'];
+            }
+
+            if ($existe != $userId) {
+                $Message = "El usuario ya existe, elija otro usuario.";
+                $id = trim($userId);
+                header("Location:/admin/usuarios_editar.php?id=".$id."&error={$Message}");
+            } else {
+                $clavehash = password_hash($clave, PASSWORD_BCRYPT);
+                $altausuario = "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', usuario='$usuario', clave='$clave' WHERE id_usuario='$userId'";
+                $resultado = pg_query($altausuario) or die('No se ha podido ejecutar la consulta.');
+                
+                pg_close($db);
+                
+                if ($resultado) {
+                    $Message = "Se ha actualizado el usuario ".$nombre."";
+                    header("Location:/admin/usuarios_editar?success={$Message}");
+                } else {
+                    $Message = "Error al actualizar el usuario";
+                    header("Location:/admin/usuarios_editar?id=".$id."&error={$Message}");
+                }
+            }
+        }
+    }
+
+
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        $dispatch = $_POST["dispatch"];
+        checkFormData();
+        switch ($dispatch) {
+            case 'create':
+                crearUsuario();
+                break;
+            case 'update':
+                actualizarUsuario();
+                break;
+            default:
+                header("Location:error.html");
+                break;
+        }
+    } else {
+        header("Location:error.html");
+    }
+
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+
+
 
         if(empty($_POST["nombre"])){
             $nombre_error = "Por favor indique un nombre para el usuario";

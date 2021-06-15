@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('inc/head.php'); ?>
+    <?php include('../inc/head.php'); ?>
 
     <?php 
         head();
     ?>
-    <?php include('inc/secure.php'); ?>
-    <?php include('inc/menu.php'); ?>
-    <?php include('inc/footer.php'); ?>
+    <?php include('../inc/secure.php'); ?>
+    <?php include('../inc/menu.php'); ?>
+    <?php include('../inc/footer.php'); ?>
 
 </head>
 <body >
@@ -19,8 +19,8 @@
         
     <main class="container mt-5">
         <h1 class="text-center">Nuevo usuario</h1>
-        <form action="user_procesar.php" method="POST">
-            <input type="hidden" name="accion" id="exampleFormControlInput1" value="alta">
+        <form action="/apis/usuarios.php" method="POST">
+            <input type="hidden" name="dispatch" id="exampleFormControlInput1" value="create">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre</label>
                 <input type="text" name="nombre" class="form-control" id="exampleFormControlInput1" placeholder="ingrese su nombre" required>
@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Agregar</button>
-                <a href="user_admin.php" class="btn btn-secondary"><i class="fas fa-arrow-alt-circle-left"></i> Volver</a>
+                <a href="/admin/usuarios.php" class="btn btn-secondary"><i class="fas fa-arrow-alt-circle-left"></i> Volver</a>
             </div>
         </form>
     </main>

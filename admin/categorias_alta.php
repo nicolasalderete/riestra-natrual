@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     
-    <?php include('inc/head.php'); ?>
+    <?php include('../inc/head.php'); ?>
 
     <?php 
         head();
     ?>
     
-    <?php include('inc/secure.php'); ?>
-    <?php include('inc/menu.php'); ?>
-    <?php include('inc/footer.php'); ?>
+    <?php include('../inc/secure.php'); ?>
+    <?php include('../inc/menu.php'); ?>
+    <?php include('../inc/footer.php'); ?>
 
 </head>
 <body >
@@ -21,7 +21,8 @@
         
     <main class="container mt-5">
         <h1 class="text-center">Nueva categoría</h1>
-        <form action="cat_procesar.php" method="POST">
+        <form action="/apis/categorias.php" method="POST">
+            <input type="hidden" name="dispatch" value="create">
             <input type="hidden" name="accion" class="form-control" id="exampleFormControlInput1" value="alta">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre de la categoría</label>
@@ -32,8 +33,15 @@
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="descripcion"></textarea>
             </div>
             <div class="form-group">
+                <label for="estadoCategoria">Estado</label>
+                <select name="estado" id="estado" class="form-control">
+                    <option value="HA" selected>Habilitada</option>
+                    <option value="DH">Deshabilitada</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-primary" type="submit"><i class="fas fa-plus-circle"></i> Agregar</button>
-                <a href="cat_admin.php" class="btn btn-secondary"><i class="fas fa-arrow-alt-circle-left"></i> Volver</a>
+                <a href="/admin/categorias.php" class="btn btn-secondary"><i class="fas fa-arrow-alt-circle-left"></i> Volver</a>
             </div>
         </form>
     </main>

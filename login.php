@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     
-    <?php include('/inc/head.php'); ?>
+    <?php include('inc/head.php'); ?>
     
     <style>
       :root {
