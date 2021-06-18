@@ -27,7 +27,6 @@
         
     <main>
         <!--Jumbotron -->
-        <?php if (pg_fetch_array($ofertasResult)) { ?>
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -42,26 +41,23 @@
                     <img src="img/vinagres.jpg" class="d-block w-100" >
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
-                            <?php $ofertas = pg_fetch_array($ofertasResult)[1];
-                             echo $ofertas['precio'] ?>
+                           Vino vegano
                         </h5>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="img/cremasdemano.jpg" class="d-block w-100" >
+                    <img src="img/vinagres.jpg" class="d-block w-100" >
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
-                            <?php $ofertas = pg_fetch_array($ofertasResult)[2];
-                             echo $ofertas['precio']; ?>
+                            Aceites
                         </h5>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="img/protectorsolar.jpg" class="d-block w-100" >
+                    <img src="img/vinagres.jpg" class="d-block w-100" >
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
-                            <?php $ofertas = pg_fetch_array($ofertasResult)[3];
-                             echo $ofertas['precio']; ?>
+                            Leches
                         </h5>
                     </div>
                 </div>
@@ -76,7 +72,6 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Siguiente</span>
             </a>
-            <?php } ?>
         </div>
 
         <!--Fin jumbotron -->
