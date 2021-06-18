@@ -10,7 +10,16 @@
     <?php include('../inc/menu.php'); ?>
     <?php include('../inc/footer.php'); ?>
     <?php include('../inc/conexion.php'); ?>
-
+    <script>
+        $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        });
+    </script>
 </head>
 <body >
     
@@ -26,6 +35,7 @@
         <main class="container mt-5">
         <h1 class="text-center">Alta, baja y modificación de usuarios</h1>
         <p><a href="/admin/usuarios_alta.php" class="btn btn-secondary"><i class="fas fa-plus-circle"></i> Nuevo usuario</a></p>
+        <p><input id="myInput" type="text" placeholder="Búsqueda rápida" class="form-control"></p>
         <?php if (!$resultado): ?>
             <h1 class="text-center">No se encontraron resultados</h1> 
         <?php else: ?>
@@ -40,15 +50,27 @@
                         <th scope="col" style="width: 20%;"></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="myTable">
                     <?php 
                         while ($fila = pg_fetch_assoc($resultado)) {
                             echo "<tr>";
                             echo "<th scope='row'>".$fila['id']."</th>";
                                 echo "<td>".$fila['nombre']."</td>";
                                 echo "<td>".$fila['apellido']."</td>";
-                                echo "<td>".$fila['rol']."</td>";
-                                echo "<td>".$fila['estado']."</td>";
+                                echo "<td>";
+                                if ($fila['rol'] == 'ADMIN') {
+                                    echo 'Administrador';
+                                } else {
+                                    echo 'Usuario';
+                                }
+                                echo "</td>";
+                                echo "<td>";
+                                if ($fila['estado'] == 'HA') {
+                                    echo 'Habilitado';
+                                } else {
+                                    echo 'Deshabilitado';
+                                }
+                                echo "</td>";
                                 echo "<td>";
                                     echo "<a href='/admin/usuarios_editar.php?id=".$fila['id']."' class='btn'>";
                                         echo "<i class='fas fa-pencil-alt'></i> Editar";

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('inc/head.php'); ?>
+    <?php include('../inc/head.php'); ?>
 
     <?php 
         head();
     ?>
-    <?php include('inc/secure.php'); ?>
-    <?php include('inc/menu.php'); ?>
-    <?php include('inc/footer.php'); ?>
-    <?php include('inc/conexion.php'); ?>
+    <?php include('../inc/secure.php'); ?>
+    <?php include('../inc/menu.php'); ?>
+    <?php include('../inc/footer.php'); ?>
+    <?php include('../inc/conexion.php'); ?>
 
 </head>
 <body >
@@ -17,20 +17,18 @@
     <?php 
         menu();
         if(empty(trim($_GET["id"]))){
-            header("Location:error");
+            header("Location:/error");
             exit;
         } else {
             $prodId = filter_var($_GET["id"], FILTER_SANITIZE_STRING);
             
             $queryProducto = "select * from productos where id = '$prodId'";
-            $productoResult = pg_query($queryProducto)
-            or header("Location:error");
+            $productoResult = pg_query($queryProducto) or header("Location:/error");
 
             $fila = pg_fetch_assoc($productoResult);
 
             $consulta = 'SELECT * FROM categorias';
-            $resultado = pg_query($consulta)
-            or die('No se ha podido ejecutar la consulta.');
+            $resultado = pg_query($consulta) or die('No se ha podido ejecutar la consulta.');
             
             pg_close($db);
         }
@@ -38,8 +36,8 @@
         
     <main class="container mt-5">
         <h1 class="text-center">Modificar producto</h1>
-        <form action="prod_procesar.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" class="form-control"  name="accion" value="update">
+        <form action="/apis/productos.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" class="form-control"  name="dispatch" value="update">
             <input type="hidden" class="form-control"  name="prodId" value="<?php echo $prodId?>">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre del producto</label>
@@ -54,12 +52,11 @@
                 <select class="form-control" id="exampleFormControlSelect1" name="categoria" >
                     <?php 
                         while ($option = pg_fetch_assoc($resultado)) {
-                            if ($categoriaSearch == $fila['id']) {
-                                $isSelected = "selected";
+                            if ($option['id'] == $fila['categoriaid']) {
+                                echo "<option value=".$option['id']." selected>".$option['nombre']."</option>";
                             } else {
-                                $isSelected = "";
+                                echo "<option value=".$option['id'].">".$option['nombre']."</option>";
                             }
-                            echo "<option $isSelected value=".$option['id'].">".$option['nombre']."</option>";
                         }
                     ?>
                 </select>
@@ -69,17 +66,23 @@
                 <input type="text" name="precio" class="form-control" id="exampleFormControlInput1" value="<?php echo $fila['precio']; ?>" required>
             </div>
             <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1" <?php if ($fila['destacado'] === '1') { echo "checked='true'"; }?> name="destacado">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" <?php if ($fila['destacado'] === 'Y') { echo "checked='true'"; }?> name="destacado">
                 <label class="form-check-label" for="exampleCheck1" >Destacado</label>
             </div>
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Subir imagen</label>
-                <input type="file" name="imagen" value="<?php echo $fila['imagen']?>">
+                <label for="exampleFormControlInput1">Nombre de la imagen</label>
+                <input type="text" name="imagen" class="form-control" id="exampleFormControlInput1" value="<?php echo $fila['imagen']?>">
             </div>
-                
+            <div class="form-group">
+                <label for="estado">Estado</label>
+                <select name="estado" id="estado" class="form-control">
+                    <option value="HA" <?php if ($fila['estado'] == 'HA') { echo 'selected';} ?>>STOCK</option>
+                    <option value="DH" <?php if ($fila['estado'] == 'DH') { echo 'selected';} ?>>SIN STOCK</option>
+                </select>
+            </div>
             <div class="form-group">
                 <button class="btn btn-primary" type="submit"><i class="fas fa-plus-circle"></i> Actualizar</button>
-                <a href="prod_admin.php" class="btn btn-secondary"><i class="fas fa-arrow-alt-circle-left"></i> Volver</a>
+                <a href="/admin/productos.php" class="btn btn-secondary"><i class="fas fa-arrow-alt-circle-left"></i> Volver</a>
             </div>
         </form>
     </main>

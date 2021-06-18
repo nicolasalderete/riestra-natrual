@@ -1,13 +1,8 @@
 <?php
     include('../inc/conexion.php');
 
-
-    function verficarSiExisteUsuario($usuario) {
-        
-    }
-
-
     function crearUsuario() {
+        
         if(empty($_POST["nombre"]) || 
                 empty($_POST["apellido"]) || 
                 empty($_POST["usuario"]) ||
@@ -17,29 +12,30 @@
             $Message = "Debe completar los campos obligatorios";
             header("Location:/admin/usuarios_alta.php?error={$Message}");
         } else {
-            $existeusuario = "select count(usuario) as nuevo from usuarios where usuario = '$usuario'";
-            $resultado = pg_query($existeusuario);
-            while ($a = pg_fetch_assoc($resultado)) {
-                $existe = $a['nuevo'];
-            }
-            if ($existe) {
+
+            $usuario = $_POST["usuario"];
+            if (pg_num_rows(pg_query("SELECT id FROM usuarios WHERE usuario = '$usuario'"))) {
                 $Message = "El usuario ya existe, elija otro usuario";
                 header("Location:/admin/usuarios_alta.php?error={$Message}");
                 pg_close($db);
             } else {
+
+                $nombre = $_POST["nombre"];
+                $apellido = $_POST["apellido"];
+                $usuario = $_POST["usuario"];
+                $clave = $_POST["clave"];
+
                 $clavehash = password_hash($clave, PASSWORD_BCRYPT);
-                $altausuario = "INSERT INTO usuarios (nombre, apellido, usuario, clave) values ('$nombre', '$apellido', '$usuario', '$clavehash')";
-                echo $altausuario;
+                $altausuario = "INSERT INTO usuarios (nombre, apellido, usuario, clave, estado, rol) values ('$nombre', '$apellido', '$usuario', '$clavehash', 'HA', 'USER')";
                 $resultado = pg_query($altausuario) or die('No se ha podido ejecutar la consulta.');
                 
                 pg_close($db);
-                
                 if ($resultado) {
                     $Message = "Se ha creado el usuario ".$nombre."";
-                    header("Location:/admin/usuarios_alta?success={$Message}");
+                    header("Location:/admin/usuarios_alta.php?success={$Message}");
                 } else {
-                    $Message = "Error al crear el usuario";
-                    header("Location:/admin/usuarios_alta?error={$Message}");
+                    $Message = "Error al crear el usuario ".$nombre."";
+                    header("Location:/admin/usuarios_alta.php?error={$Message}");
                 }
             }
         }
@@ -47,49 +43,51 @@
 
     function actualizarUsuario() {
 
+        $userId = filter_var($_POST["userId"], FILTER_SANITIZE_NUMBER_INT);
         if(empty($_POST["nombre"]) || 
-        empty($_POST["apellido"]) || 
-        empty($_POST["usuario"]) ||
-        empty($_POST["clave"])){
+            empty($_POST["apellido"]) || 
+            empty($_POST["usuario"]) ){
 
             $error = "Por favor debe completar los campos obligatorios";
             $Message = "Debe completar los campos obligatorios";
-            header("Location:/admin/usuarios_editar.php?error={$Message}");
+            header("Location:/admin/usuarios_editar.php?id=".$userId."&error={$Message}");
         } else {
-            $userId = filter_var($_POST["userId"], FILTER_SANITIZE_STRING);
-            $existeusuario = "select * from usuarios where id = '$usuario'";
-            $resultado = pg_query($existeusuario);
+            $resultado = pg_query("SELECT clave as clave FROM usuarios WHERE id = " .$userId."");
 
-            while ($a = pg_fetch_assoc($resultado)) {
-                $existe = $a['id_usuario'];
-            }
+            if ($resultado) {
+                $row = pg_fetch_assoc($resultado);
+                $nombre = filter_var($_POST["nombre"], FILTER_SANITIZE_STRING);
+                $apellido = filter_var($_POST["apellido"], FILTER_SANITIZE_STRING);
+                $usuario = filter_var($_POST["usuario"], FILTER_SANITIZE_STRING);
+                $clave = filter_var($_POST["clave"], FILTER_SANITIZE_STRING);
+                $rol = filter_var($_POST["rol"], FILTER_SANITIZE_STRING);
+                $estado = filter_var($_POST["estado"], FILTER_SANITIZE_STRING);
 
-            if ($existe != $userId) {
-                $Message = "El usuario ya existe, elija otro usuario.";
-                $id = trim($userId);
-                header("Location:/admin/usuarios_editar.php?id=".$id."&error={$Message}");
-            } else {
-                $clavehash = password_hash($clave, PASSWORD_BCRYPT);
-                $altausuario = "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', usuario='$usuario', clave='$clave' WHERE id_usuario='$userId'";
-                $resultado = pg_query($altausuario) or die('No se ha podido ejecutar la consulta.');
-                
-                pg_close($db);
-                
-                if ($resultado) {
+                if (empty($_POST["changeclave"])) {
+                    $updateUsuario = "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', usuario='$usuario', estado='$estado', rol='$rol' WHERE id='$userId'";
+                    $resul = pg_query($updateUsuario) or die('No se ha podido ejecutar la consulta.');
+                } else {
+                    $actual = $row["clave"];
+                    
+                    if ($clave != $row['clave']) {
+                        $clave = password_hash($clave, PASSWORD_BCRYPT);
+                    }
+                    $updateUsuario = "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', usuario='$usuario', clave='$clave', estado='$estado', rol='$rol' WHERE id='$userId'";
+                    $resul = pg_query($updateUsuario) or die('No se ha podido ejecutar la consulta.');
+                }
+                if ($resul) {
                     $Message = "Se ha actualizado el usuario ".$nombre."";
-                    header("Location:/admin/usuarios_editar?success={$Message}");
+                    header("Location:/admin/usuarios.php?success={$Message}");
                 } else {
                     $Message = "Error al actualizar el usuario";
-                    header("Location:/admin/usuarios_editar?id=".$id."&error={$Message}");
+                    header("Location:/admin/usuarios_editar.php?id=".$userId."&error={$Message}");
                 }
             }
         }
     }
 
-
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         $dispatch = $_POST["dispatch"];
-        checkFormData();
         switch ($dispatch) {
             case 'create':
                 crearUsuario();
@@ -98,117 +96,11 @@
                 actualizarUsuario();
                 break;
             default:
-                header("Location:error.html");
+                header("Location:/error.html");
                 break;
         }
     } else {
-        header("Location:error.html");
-    }
-
-
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-
-
-
-        if(empty($_POST["nombre"])){
-            $nombre_error = "Por favor indique un nombre para el usuario";
-        } else{
-            $nombre = filter_var($_POST["nombre"], FILTER_SANITIZE_STRING);
-        }
-        
-        if(empty($_POST["apellido"])){
-            $apellido_error = "Por favor cargue un apellido para el usuario";
-        } else{
-            $apellido = filter_var($_POST["apellido"], FILTER_SANITIZE_STRING);
-        }
-        if(empty($_POST["usuario"])){
-            $usuario_error = "Por favor indique un usuario por favor";
-        } else{
-            $usuario = filter_var($_POST["usuario"], FILTER_SANITIZE_STRING);
-        }
-        
-        if(empty($_POST["clave"])){
-            $clave_error = "Por favor cargue una clave para el usuario.";
-        } else{
-            $clave = filter_var($_POST["clave"], FILTER_SANITIZE_STRING);
-        }
-
-        if($_POST["accion"] == "alta") {
-            if (!empty($descripcion_error) || !empty($nombre_error) || !empty($usuario_error) || !empty($clave_error)) {
-                $Message = "Debe completar los campos obligatorios";
-                header("Location:user_admin.php?error={$Message}");
-            } else {
-        
-                $existeusuario = "select count(usuario) as nuevo from usuarios where usuario = '$usuario'";
-            
-                $resultado = pg_query($existeusuario);
-        
-                while ($a = pg_fetch_assoc($resultado)) {
-                    $existe = $a['nuevo'];
-                }
-        
-                if ($existe) {
-                    $Message = "El usuario ya existe, elija otro usuario";
-                    header("Location:user_alta.php?error={$Message}");
-                    exit;
-                }
-        
-                $clavehash = password_hash($clave, PASSWORD_BCRYPT);
-                $altausuario = "INSERT INTO usuarios (nombre, apellido, usuario, clave) values ('$nombre', '$apellido', '$usuario', '$clavehash')";
-                echo $altausuario;
-                $resultado = pg_query($altausuario) or die('No se ha podido ejecutar la consulta.');
-                
-                pg_close($db);
-                
-                if ($resultado) {
-                    $Message = "Se ha creado el usuario ".$nombre."";
-                    header("Location:user_admin.php?success={$Message}");
-                } else {
-                    $Message = "Error al crear el usuario";
-                    header("Location:user_admin.php?error={$Message}");
-                }
-            }
-        } elseif ($_POST["accion"] == "update") {
-            if (!empty($descripcion_error) || !empty($nombre_error) || !empty($usuario_error) || !empty($clave_error)) {
-                $Message = "Debe completar los campos obligatorios";
-                header("Location:user_admin.php?error={$Message}");
-            } else {
-                $userId = filter_var($_POST["userId"], FILTER_SANITIZE_STRING);
-
-                $existeusuario = "select * from usuarios where usuario = '$usuario'";
-            
-                $resultado = pg_query($existeusuario);
-        
-                while ($a = pg_fetch_assoc($resultado)) {
-                    $existe = $a['id_usuario'];
-                }
-        
-                if ($existe != $userId) {
-                    $Message = "El usuario ya existe, elija otro usuario.";
-                    $id = trim($userId);
-                    header("Location:user_edit.php?id=".$id."&error={$Message}");
-                } else {
-                    $clavehash = password_hash($clave, PASSWORD_BCRYPT);
-                    $altausuario = "UPDATE usuarios SET nombre='$nombre', apellido='$apellido', usuario='$usuario', clave='$clave' WHERE id_usuario='$userId'";
-                    $resultado = pg_query($altausuario) or die('No se ha podido ejecutar la consulta.');
-                    
-                    pg_close($db);
-                    
-                    if ($resultado) {
-                        $Message = "Se ha actualizado el usuario ".$nombre."";
-                        header("Location:user_admin.php?success={$Message}");
-                    } else {
-                        $Message = "Error al actualizar el usuario";
-                        header("Location:user_edit.php?id=".$id."&error={$Message}");
-                    }
-                }
-            }
-        } else {
-            header("Location:error.html");
-        }
-    } else {
-        header("Location:error.html");
+        header("Location:/error.html");
     }
 
 ?>

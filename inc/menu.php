@@ -1,4 +1,13 @@
 <?php
+
+    function esUsuarioAdmin() {
+        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
+            return $_SESSION['rol'] == "ADMIN";
+        } else {
+            return false;
+        }
+    }
+    
     function menu() {
 ?>
 <!--Menu-->
@@ -65,13 +74,16 @@
             <?php if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']): ?>
                 <div class="nav-item ml-2">
                     <ul class="navbar-nav mr-auto">
+                    
+                        <?php if($_SESSION["rol"] == "USER") {?>
                         <li class="nav-item active">
                             <a href="/user/carrito.php" class="nav-link"><i class="fas fa-shopping-cart"></i> 5</a>
                         </li>
+                        <?php }?>
                         <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> <?php echo $_SESSION['usuario'] ?></a>
                             <div class="dropdown-menu">
-                                <a href="logout.php"><i class="fas fa-sign-out-alt ml-5"></i>Salir</i></a>
+                                <a href="/logout.php"><i class="fas fa-sign-out-alt ml-5"></i>Salir</i></a>
                             </div>
                         </li>
                     </ul>
@@ -83,7 +95,7 @@
                             <a class="nav-link" href="login.php" role="button"><i class="fas fa-user-lock"></i> Ingresar</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="registrarse.php" role="button"><i class="fas fa-user-lock"></i> Registrarse</a>
+                            <a class="nav-link btn btn-secondary" href="registrarse.php" role="button"><i class="fas fa-list-alt"></i> Registrarse</a>
                         </li>
                     </ul>
                 </div>
