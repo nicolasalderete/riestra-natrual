@@ -33,7 +33,7 @@
         
     <main class="mt-5 mr-5 ml-5">
         <h1 class="text-center">Alta, baja y modificación de productos</h1>
-        <p><a href="/admin/productos_alta.php" class="btn btn-secondary"><i class="fas fa-plus-circle"></i> Nueva producto</a></p>
+        <p><a href="/admin/productos_alta.php" class="btn btn-secondary"><i class="fas fa-plus-circle"></i> Nuevo producto</a></p>
         <p><input id="myInput" type="text" placeholder="Búsqueda rápida" class="form-control"></p>
         <?php if (!$resultado): ?>
             <h1 class="text-center">No se encontraron resultados</h1> 
