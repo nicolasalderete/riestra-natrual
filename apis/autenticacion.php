@@ -20,7 +20,6 @@
             header("Location:/login.php?error={$Message}");
         } else {
             $resultado = pg_query("SELECT nombre,  apellido, clave FROM usuarios WHERE usuario = '$username'");
-            debug_print_backtrace();
             while($fila = pg_fetch_array($resultado)) {
                 $clavebdd = $fila['clave'];
             }

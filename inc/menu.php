@@ -45,7 +45,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/ubicacion.php"><i class="fas fa-street-view"></i> Ubicación</a>
                 </li>
-                <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']): ?>
+                <?php if (esUsuarioAdmin()): ?>
                     <!--Ver si esta logueado -->
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administración</a>
