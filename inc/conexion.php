@@ -8,9 +8,9 @@
     //      host=localhost:5423 dbname=dietetica user=restra_natural password=1q2w3e4r
     if ($_SERVER["DATABASE_URL"]) 
     {
-        $db = pg_connect($_SERVER["DATABASE_URL"]) or header("location: error.html");
+        $db = pg_connect($_SERVER["DATABASE_URL"]) or header("location:/error.html");
     } else {
-        $db = pg_connect($_ENV["DATABASE_URL"]) or header("location: error.html");
+        $db = pg_connect($_ENV["DATABASE_URL"]) or header("location:/error.html");
     }
     //$db = pg_connect("host=localhost dbname=dietetica user=postgres password=1q2w3e4r") or header("location: error.html");
 

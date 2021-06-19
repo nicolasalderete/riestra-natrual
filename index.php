@@ -88,11 +88,11 @@
                 <?php while ($fila = pg_fetch_array($productoResult)) { ?>
                     <div class="col-lg-4">
                         
-                        <img src="<?php echo "https://objective-leavitt-137c97.netlify.app/".$fila['imagen'].""?>" alt="Cereal" class="rounded-circle">
+                        <img src="<?php echo $_ENV["URL_RECURSOS"]."/".$fila['imagen'].""?>" alt="<?php echo $fila['nombre']?>" class="rounded-circle">
                         <title><?php echo $fila['nombre']?></title>
                         <h2><?php echo $fila['nombre']?></h2>
                         <p><?php echo $fila['descripcion']?></p>
-                        <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+                        <p><a class="btn btn-secondary" href="#" role="button">Ver más</a></p>
                     </div>
                 <?php } ?>
                 

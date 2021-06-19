@@ -3,10 +3,13 @@
 <head>
     
     <?php include('inc/head.php'); ?>
-    
+
     <style>
-    html {
-      background-color: #ecf0f1;
+
+/* BASIC */
+
+html {
+  background-color: #56baed;
 }
 
 body {
@@ -43,7 +46,6 @@ h3 {
   width: 100%;
   min-height: 100%;
   padding: 20px;
-  background-color: #ecf0f1;
 }
 
 #formContent {
@@ -147,15 +149,6 @@ input[type=text]:focus {
 }
 
 input[type=text]:placeholder {
-  color: #cccccc;
-}
-
-input[type=password]:focus {
-  background-color: #fff;
-  border-bottom: 2px solid #5fbae9;
-}
-
-input[type=password]:placeholder {
   color: #cccccc;
 }
 
@@ -276,10 +269,11 @@ input[type=password]:placeholder {
 }
 
 
-
     </style>
+    
 </head>
 <body>
+
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <?php if (isset($_GET["error"]) && $_GET["error"] != ''):?>
@@ -287,11 +281,15 @@ input[type=password]:placeholder {
           <strong><?php echo $_GET["error"] ?></strong>
       </div>
     <?php endif; ?>
-    <br>
-    <h3>Riestra Natural</h3>
-    <form action="/apis/autenticacion.php" method="POST">
-      <input type="text" name="username" id="inputEmail" class="fadeIn third" placeholder="Usuario" required autofocus>
-      <input type="password" name="password" id="clave" class="fadeIn third" placeholder="Clave" required>
+    <h2>Riestra Natural</h2>
+    <h4>Registrarse</h4>
+    <form action="/apis/registro.php" method="POST">
+      <input type="text" id="nombre" class="fadeIn second" name="nombre" placeholder="Nombre" required>
+      <input type="text" id="apellido" class="fadeIn third" name="apellido" placeholder="Apellido" required>
+      <input type="text" id="usuario" class="fadeIn third" name="usuario" placeholder="Usuario" required>
+      <input type="password" id="clave" class="fadeIn third" name="clave" placeholder="Clave" required>
+      <input type="password" id="confirmaClave" class="fadeIn third" name="confirmaClave" placeholder="Confirme su clave" required>
+
       <input type="submit" class="fadeIn fourth" value="Aceptar">
     </form>
 
@@ -304,3 +302,4 @@ input[type=password]:placeholder {
 
 </body>
 </html>
+

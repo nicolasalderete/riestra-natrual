@@ -95,7 +95,7 @@
                             <a class="nav-link" href="login.php" role="button"><i class="fas fa-user-lock"></i> Ingresar</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link btn btn-secondary" href="registrarse.php" role="button"><i class="fas fa-list-alt"></i> Registrarse</a>
+                            <a class="nav-link btn btn-secondary" href="registro.php" role="button"><i class="fas fa-list-alt"></i> Registrarse</a>
                         </li>
                     </ul>
                 </div>
