@@ -84,10 +84,11 @@
                         while ($fila = pg_fetch_assoc($resultado)) {
                             echo "<div class='col mb-4'>";
                                 echo "<div class='card'>";
-                                    echo "<img src=img/prod/".$fila['imagen']." class='card-img-top' alt='Cereal'>";
+                                    echo "<img src=".urlRecursos()."/".$fila['imagen']." class='card-img-top' alt='Cereal'>";
                                     echo "<div class='card-body'>";
                                         echo "<h5 class='card-title'>".$fila['nombre']."</h5>";
                                         echo "<p class='card-text'>".$fila['descripcion']."</p>";
+                                        echo "<p><a class='btn btn-secondary' href='/productos_detalle.phpe?id=".$fila['id']."' role='button'>Ver más</a></p>";
                                     echo "</div>";
                                 echo "</div>";
                             echo "</div>";

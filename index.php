@@ -32,13 +32,16 @@
             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
             <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="4"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="5"></li>
             </ol>
 
             
 
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="img/vinagres.jpg" class="d-block w-100" >
+                    <img src="<?php echo urlRecursos()."/promo/1.jpeg"?>" class="d-block w-100" >
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
                            Vino vegano
@@ -46,7 +49,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="img/vinagres.jpg" class="d-block w-100" >
+                    <img src="<?php echo urlRecursos()."/promo/2.jpeg"?>" class="d-block w-100" >
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
                             Aceites
@@ -54,7 +57,31 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="img/vinagres.jpg" class="d-block w-100" >
+                    <img src="<?php echo urlRecursos()."/promo/3.jpg"?>" class="d-block w-100" >
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>
+                            Leches
+                        </h5>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="<?php echo urlRecursos()."/promo/4.jpg"?>" class="d-block w-100" >
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>
+                            Leches
+                        </h5>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="<?php echo urlRecursos()."/promo/5.jpg"?>" class="d-block w-100" >
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>
+                            Leches
+                        </h5>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="<?php echo urlRecursos()."/promo/6.jpg"?>" class="d-block w-100" >
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
                             Leches
@@ -88,7 +115,7 @@
                 <?php while ($fila = pg_fetch_array($productoResult)) { ?>
                     <div class="col-lg-4">
                         
-                        <img src="<?php echo $_ENV["URL_RECURSOS"]."/".$fila['imagen'].""?>" alt="<?php echo $fila['nombre']?>" class="rounded-circle">
+                        <img src="<?php echo urlRecursos()."/".$fila['imagen'].""?>" alt="<?php echo $fila['nombre']?>" class="rounded-circle">
                         <title><?php echo $fila['nombre']?></title>
                         <h2><?php echo $fila['nombre']?></h2>
                         <p><?php echo $fila['descripcion']?></p>

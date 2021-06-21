@@ -1,5 +1,13 @@
 <?php
     session_start();
+
+
+    function urlRecursos() {
+        if (isset($_ENV["URL_RECURSOS"])) {
+            return $_ENV["URL_RECURSOS"];
+        }
+        return $_SERVER["URL_RECURSOS"];
+    }
     
     function head() {
 ?>
