@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="<?php echo urlRecursos()."/promo/4.jpg"?>" class="d-block w-100" >
+                    <img src="<?php echo urlRecursos()."/promo/4.jpeg"?>" class="d-block w-100" >
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
                             Leches
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="<?php echo urlRecursos()."/promo/5.jpg"?>" class="d-block w-100" >
+                    <img src="<?php echo urlRecursos()."/promo/5.jpeg"?>" class="d-block w-100" >
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
                             Leches
@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="<?php echo urlRecursos()."/promo/6.jpg"?>" class="d-block w-100" >
+                    <img src="<?php echo urlRecursos()."/promo/6.jpeg"?>" class="d-block w-100" >
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
                             Leches
