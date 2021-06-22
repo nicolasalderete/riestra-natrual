@@ -115,7 +115,7 @@
                 <?php while ($fila = pg_fetch_array($productoResult)) { ?>
                     <div class="col-lg-4">
                         
-                        <img src="<?php echo urlRecursos()."/".$fila['imagen'].""?>" alt="<?php echo $fila['nombre']?>" class="rounded-circle">
+                        <img src="<?php echo urlRecursos()."/producto/".$fila['imagen'].""?>" alt="<?php echo $fila['nombre']?>" class="rounded-circle">
                         <title><?php echo $fila['nombre']?></title>
                         <h2><?php echo $fila['nombre']?></h2>
                         <p><?php echo $fila['descripcion']?></p>
