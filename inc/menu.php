@@ -76,8 +76,8 @@
                     <ul class="navbar-nav mr-auto">
                     
                         <?php if($_SESSION["rol"] == "USER") {?>
-                        <li class="nav-item active">
-                            <a href="/user/carrito.php" class="nav-link"><i class="fas fa-shopping-cart"></i> 5</a>
+                        <li class="nav-item active red">
+                            <a href="/user/carrito.php" class="btn-danger btn"><i class="fas fa-shopping-cart"></i> 5</a>
                         </li>
                         <?php }?>
                         <li class="nav-item dropdown active">
@@ -91,6 +91,9 @@
             <?php else: ?>
                 <div class="nav-item dropleft">
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active red">
+                            <a href="/user/carrito.php" class="btn-danger btn"><i class="fas fa-shopping-cart"></i> 5</a>
+                        </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="login.php" role="button"><i class="fas fa-user-lock"></i> Ingresar</a>
                         </li>

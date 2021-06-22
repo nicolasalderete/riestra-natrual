@@ -1,120 +1,47 @@
-<?php
-    include('inc/conexion.php');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <?php include('inc/head.php'); ?>
 
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-        if(empty($_POST["nombre"])){
-            $nombre_error = "Por favor indique un nombre del producto";
-        } else{
-            $nombre = filter_var($_POST["nombre"], FILTER_SANITIZE_STRING);
-        }
-
-        if(empty($_POST["descripcion"])){
-            $descripcion_error = "Por favor indique un nombre del producto";
-        } else{
-            $descripcion = filter_var($_POST["descripcion"], FILTER_SANITIZE_STRING);
-        }
-        
-        if(empty($_POST["categoria"])){
-            $categoria_error = "Por favor indique la categoria para el producto";
-        } else{
-            $categoria = filter_var($_POST["categoria"], FILTER_VALIDATE_INT);
-        }
-
-        /* Esto es lo que estaba, solo le puse una validacion si ingresaba una letra
-        en vez de un numero.
-        if(empty($_POST["precio"])){
-            $precio_error = "Por favor indique el precio para el producto";
-        } 
-        */
-        if(is_numeric($_POST["precio"]) == false || empty($_POST["precio"]))
-        {
-            $precio_error = "Por favor indique el precio para el producto";
-        } 
-        else
-        {
-            $precio = filter_var($_POST["precio"], FILTER_SANITIZE_STRING);
-        }
-
-        if(!empty($_FILES['imagen']['name'])){
-            $imagen = $_FILES['imagen']['name'];
-        }
-
-        if(!empty($_POST["destacado"])){
-            $destacado = 1;
-        } else {
-            $destacado = 0;
-        }
-
-        if (!empty($categoria_error) || !empty($nombre_error) || !empty($precio_error) || !empty($descripcion_error)) {
-            $Message = "Debe completar los campos nombre, categoria, descripcion y precio";
-            header("Location:prod_alta.php?error={$Message}");
-            exit;
-        }
-
-        if($_POST["accion"] == "alta") {
-            $archivo_subido = true;
-            $dir_subida = 'img/prod/';
-            if (isset($imagen)) {
-                $fichero_subido = $dir_subida . basename($_FILES['imagen']['name']);
-                $archivo_subido = move_uploaded_file($_FILES['imagen']['tmp_name'], $fichero_subido);
-            } else {
-                $imagen = "noimage.jpeg";
-            }
-            if ($archivo_subido) {
-                $altaproducto = "INSERT INTO productos (nombre, descripcion, categoriaid, precio, destacado, imagen) values ('$nombre', '$descripcion', '$categoria', '$precio', $destacado, '$imagen')";
-                $resultado = pg_query($altaproducto) or die('No se ha podido ejecutar la consulta.');
-                
-                pg_close($db);
-        
-                if ($resultado) {
-                    $Message = "Se ha creado el producto ".$nombre."";
-                    header("Location:prod_admin.php?success={$Message}");
-                    exit;
-                } else {
-                    $Message = "Error al insertar el producto";
-                    header("Location:prod_alta.php?error={$Message}");
-                    exit;
-                }
-            } else {
-                $Message = "Error al subir el archivo";
-                header("Location:prod_alta.php?error={$Message}");
-                exit;
-            }
-            
-        } elseif ($_POST["accion"] == "update") {
-
-            $prodId = filter_var($_POST["prodId"], FILTER_SANITIZE_STRING);
-            $existe_producto = "select * from productos where id='$prodId'";
-            $resultado_producto = pg_query($existe_producto);
+    <?php 
+        head();
+    ?>
+    <?php include('inc/menu.php'); ?>
+    <?php include('inc/footer.php'); ?>
+    <?php include('inc/conexion.php'); ?>
+</head>
+<body >
     
-            while ($a = pg_fetch_assoc($resultado_producto)) {
-                $existe = $a['id'];
-            }
+    <?php 
+        menu();
 
-            if ($existe == $prodId) {
-                if (isset($imagen)) {
-                    $update_producto = "UPDATE productos SET nombre = '$nombre', descripcion = '$descripcion', categoriaid = '$categoria', precio = '$precio', destacado = $destacado, imagen = '$imagen' WHERE id='$prodId'";
-                } else {
-                    $update_producto = "UPDATE productos SET nombre = '$nombre', descripcion = '$descripcion', categoriaid = '$categoria', precio = '$precio', destacado = $destacado WHERE id='$prodId'";
-                }
-                $resultado = pg_query($update_producto) or die('No se ha podido ejecutar la consulta.');
-                pg_close($db);
-                if ($resultado) {
-                    $Message = "Se ha actualizado el producto ".$nombre."";
-                    header("Location:prod_admin.php?success={$Message}");
-                } else {
-                    $Message = "Error al actualizar el producto";
-                    header("Location:prod_edit.php?id=".$id."&error={$Message}");
-                }
-            } else {
-                $Message = "El producto no existe.";
-                $id = trim($prodId);
-                header("Location:prod_edit.php?id=".$prodId."&error={$Message}");
-            }
-        } else {
-            header("Location:error.html");
-        }
-    }
-    
-?>
+    ?>
+        
+    <main class="mt-5">
+
+        <!-- filtro de busqueda -->
+        <div class="container">
+            <h1>Detalle del Producto</h1>
+            <div class="card mb-3" style="max-width: 540px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                <img src="..." alt="...">
+                </div>
+                <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <a href="/user/carrito.php" class="btn-secondary btn"><i class="fas fa-shopping-cart"></i> Agregar</a>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -23,22 +23,26 @@
     ?>
         
     <main class="container mt-5">
-
+        <h1>Ofertas</h1>
         <?php if (!$resultado): ?>
             <h1 class="text-center">No se encontraron ofertas</h1> 
         <?php else: ?>
-
-            <?php 
-                while ($fila = pg_fetch_assoc($resultado)) {
-                    echo "<div class='jumbotron'>";
-                        echo "<div class='container'>";
-                            echo "<h1 class='display-4'>".$fila['nombre']."</h1>";
-                            echo "<p class='lead'>".$fila['descripcion']."</p>";
-                        echo "</div>";
-                    echo "</div>";
-                }
-            ?>
+            <?php  while ($fila = pg_fetch_assoc($resultado)) { ?>
+                <div class="row no-gutters bg-light position-relative">
+                    <div class="col-md-6 mb-md-0 p-md-4">
+                        <?php $srcimagen = urlRecursosOfertas($fila['imagen']); ?>    
+                        <img src="<?php echo $srcimagen; ?>" class="w-100" alt="<?php echo $fila['nombre']?>">
+                    </div>
+                    <div class="col-md-6 position-static p-4 pl-md-0">
+                        <h5 class="mt-0"><?php echo $fila['nombre']; ?></h5>
+                        <p><?php echo $fila['descripcion']; ?></p>
+                        <a href="/user/carrito.php" class="btn-secondary btn"><i class="fas fa-shopping-cart"></i> Agregar</a>
+                    </div>
+                </div>
+                <br>
+            <?php } ?>
         <?php endif; ?>
+            
     </main>
 
     <?php 

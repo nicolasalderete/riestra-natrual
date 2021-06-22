@@ -8,7 +8,15 @@
         }
         return $_SERVER["URL_RECURSOS"];
     }
+
+    function urlRecursosOfertas($imagen) {
+        return urlRecursos()."/ofertas/".$imagen;
+    }
     
+    function urlRecursosProductos($imagen) {
+        return urlRecursos()."/productos/".$imagen;
+    }
+
     function head() {
 ?>
         <meta charset="UTF-8">

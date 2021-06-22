@@ -45,7 +45,8 @@
 
         <!-- filtro de busqueda -->
         <div class="container">
-            <div >
+            <h1>Productos</h1>
+            <div>
                 <form action="productos.php" method="GET">
                     <div class="form-row align-items-center">
                         <div class="col-sm-3 my-1">
@@ -88,7 +89,7 @@
                                     echo "<div class='card-body'>";
                                         echo "<h5 class='card-title'>".$fila['nombre']."</h5>";
                                         echo "<p class='card-text'>".$fila['descripcion']."</p>";
-                                        echo "<p><a class='btn btn-secondary' href='/productos_detalle.phpe?id=".$fila['id']."' role='button'>Ver más</a></p>";
+                                        echo "<p><a class='btn btn-secondary' href='/producto_detalle.php?id=".$fila['id']."' role='button'>Ver más</a></p>";
                                     echo "</div>";
                                 echo "</div>";
                             echo "</div>";

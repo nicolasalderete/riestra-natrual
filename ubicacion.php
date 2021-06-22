@@ -17,7 +17,10 @@
     ?>
         
     <main class="mt-5">
+        <div class="container">
+            <h1>Ubicacion</h1>
             <img src="img/ubicacion.png">
+        </div>
     </main> 
 
     <?php 

@@ -119,7 +119,7 @@
                         <title><?php echo $fila['nombre']?></title>
                         <h2><?php echo $fila['nombre']?></h2>
                         <p><?php echo $fila['descripcion']?></p>
-                        <p><a class="btn btn-secondary" href="#" role="button">Ver más</a></p>
+                        <p><a class="btn btn-secondary" href="<?php echo "/producto_detalle.php?id=".$fila['id']?>" role="button">Ver más</a></p>
                     </div>
                 <?php } ?>
                 
