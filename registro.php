@@ -9,7 +9,7 @@
 /* BASIC */
 
 html {
-  background-color: #56baed;
+  background-color: #ecf0f1;
 }
 
 body {
@@ -46,6 +46,7 @@ h3 {
   width: 100%;
   min-height: 100%;
   padding: 20px;
+  background-color: #ecf0f1;
 }
 
 #formContent {
@@ -284,6 +285,7 @@ input[type=text]:placeholder {
     <h2>Riestra Natural</h2>
     <h4>Registrarse</h4>
     <form action="/apis/registro.php" method="POST">
+      <input type="hidden" id="dispatch" class="fadeIn second" name="dispatch" value="register" >
       <input type="text" id="nombre" class="fadeIn second" name="nombre" placeholder="Nombre" required>
       <input type="text" id="apellido" class="fadeIn third" name="apellido" placeholder="Apellido" required>
       <input type="text" id="usuario" class="fadeIn third" name="usuario" placeholder="Usuario" required>

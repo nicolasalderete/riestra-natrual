@@ -26,6 +26,7 @@
         
     <main class="container mt-5">
         <h1 class="text-center">Nuevo producto</h1>
+        <hr>
         <form action="/apis/productos.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" class="form-control" id="exampleFormControlInput1" name="dispatch" value="create">
             <div class="form-group">
@@ -60,7 +61,7 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-primary" type="submit"><i class="fas fa-plus-circle"></i> Agregar</button>
-                <a href="prod_admin.php" class="btn btn-secondary"><i class="fas fa-arrow-alt-circle-left"></i> Volver</a>
+                <a href="/admin/productos.php" class="btn btn-secondary"><i class="fas fa-arrow-alt-circle-left"></i> Volver</a>
             </div>
         </form>
     </main>

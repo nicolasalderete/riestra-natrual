@@ -19,6 +19,7 @@
         
     <main class="container mt-5">
         <h1 class="text-center">Nuevo usuario</h1>
+        <hr>
         <form action="/apis/usuarios.php" method="POST">
             <input type="hidden" name="dispatch" id="exampleFormControlInput1" value="create">
             <div class="form-group">

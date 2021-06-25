@@ -24,9 +24,10 @@
         
     <main class="container mt-5">
         <h1>Ofertas</h1>
+        <hr>
         <?php if (!$resultado): ?>
             <h1 class="text-center">No se encontraron ofertas</h1> 
-        <?php else: ?>
+        <?php else: ?> 
             <?php  while ($fila = pg_fetch_assoc($resultado)) { ?>
                 <div class="row no-gutters bg-light position-relative">
                     <div class="col-md-6 mb-md-0 p-md-4">

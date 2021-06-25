@@ -36,6 +36,7 @@
         
     <main class="container mt-5">
         <h1 class="text-center">Modificar categoría</h1>
+        <hr>
         <form action="/apis/categorias.php" method="POST">
             <input type="hidden" name="dispatch" class="form-control" id="exampleFormControlInput1" value="update">
             <input type="hidden" name="catId" class="form-control" id="exampleFormControlInput1" value="<?php echo $fila['id']?>">

@@ -13,9 +13,14 @@
             $precio = filter_var($_POST["precio"], FILTER_SANITIZE_STRING);
             $estado = $_POST["estado"];
             $productos = $_POST["productos"];
+            $imagen = filter_var($_POST["imagen"], FILTER_SANITIZE_STRING);
+
+            if (empty($imagen)) {
+                $imagen = "noimage.jpeg";
+            }
 
             $oid = rand();
-            $insertOferta = "INSERT INTO ofertas (id, nombre, descripcion, estado, precio) values ($oid, '$nombre', '$descripcion', 'HA', $precio)";
+            $insertOferta = "INSERT INTO ofertas (id, nombre, descripcion, estado, precio, imagen) values ($oid, '$nombre', '$descripcion', 'HA', $precio, '$imagen')";
             $resultado = pg_query($insertOferta) or die('Error en el servidor');
 
             if ($resultado) {
@@ -24,39 +29,55 @@
                     $resultadoProdOfertas = pg_query($insertProdOfertas) or die('Error en el servidor');
                     if (!$resultado) {
                         $Message = "Error al crear la oferta";
-                        header("Location:/admin/Ofertas_alta.php?error={$Message}");
+                        header("Location:/admin/ofertas_alta.php?error={$Message}");
                     }
                 }
                 $Message = "Se ha creado la oferta ".$nombre."";
-                header("Location:/admin/Ofertas.php?success={$Message}");
+                header("Location:/admin/ofertas.php?success={$Message}");
             } else {
                 $Message = "Error al crear la oferta";
-                header("Location:/admin/Ofertas_alta.php?error={$Message}");
+                header("Location:/admin/ofertas_alta.php?error={$Message}");
             }
             pg_close($db);
         }
     }
 
     function actualizarOferta() {
-        if(empty($_POST["nombre"]) || empty($_POST["descripcion"]) || empty($_POST["estado"]) ){
-            $Message = "Debe completar los campos oferta, descripcion y estado";
-            header("Location:/admin/Ofertas_alta.php?error={$Message}");
+
+        if(empty($_POST["oferId"]) || empty($_POST["nombre"]) || empty($_POST["descripcion"]) || empty($_POST["estado"]) || empty($_POST["precio"])){
+            $Message = "Debe completar los campos obligatorios";
+            header("Location:/admin/ofertas_editar.php?id={}&error={$Message}");
         } else{
-            $catId = filter_var($_POST["catId"], FILTER_SANITIZE_STRING);
-            $nombre = $_POST["nombre"];
-            $descripcion = $_POST["descripcion"];
+            $oferId = $_POST["oferId"];
+            $nombre = filter_var($_POST["nombre"], FILTER_SANITIZE_STRING);
+            $descripcion = filter_var($_POST["descripcion"], FILTER_SANITIZE_STRING);
+            $precio = filter_var($_POST["precio"], FILTER_SANITIZE_STRING);
             $estado = $_POST["estado"];
-            $actualizarOferta = "UPDATE Ofertas SET nombre='$nombre', descripcion='$descripcion', estado='$estado' WHERE id='$catId'";
+            $productos = $_POST["productos"];
+            $imagen = filter_var($_POST["imagen"], FILTER_SANITIZE_STRING);
+
+            $actualizarOferta = "UPDATE ofertas SET nombre='$nombre', descripcion='$descripcion', estado='$estado', precio=$precio, imagen='$imagen'  WHERE id='$oferId'";
             $resultado = pg_query($actualizarOferta) or die('Error en el servidor');
-            
+
+            $borrarProductos = "DELETE FROM productos_ofertas WHERE ofertaid=$oferId";
+            $resultadoDelete = pg_query($borrarProductos) or die('Error en el servidor');
+
+            foreach ($productos as &$prod) {
+                $insertProdOfertas = "INSERT INTO productos_ofertas (productoid, ofertaid) values ($prod, $oferId)";
+                $resultadoProdOfertas = pg_query($insertProdOfertas) or die('Error en el servidor');
+                if (!$resultadoProdOfertas) {
+                    $Message = "Error al crear la oferta";
+                    header("Location:/admin/ofertas_alta.php?error={$Message}");
+                }
+            }
+
             pg_close($db);
-    
             if ($resultado) {
                 $Message = "Se ha actualizado la Oferta ".$nombre."";
                 header("Location:/admin/ofertas.php?success={$Message}");
             } else {
                 $Message = "Error al actualizar la oferta";
-                header("Location:/admin/ofertas_edit.php?error={$Message}");
+                header("Location:/admin/ofertas_editar.php?id={$oferId}&error={$Message}");
             }
         }
     }

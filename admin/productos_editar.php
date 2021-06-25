@@ -36,6 +36,7 @@
         
     <main class="container mt-5">
         <h1 class="text-center">Modificar producto</h1>
+        <hr>
         <form action="/apis/productos.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" class="form-control"  name="dispatch" value="update">
             <input type="hidden" class="form-control"  name="prodId" value="<?php echo $prodId?>">

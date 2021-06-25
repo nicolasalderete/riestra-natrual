@@ -21,6 +21,7 @@
         
     <main class="container mt-5">
         <h1 class="text-center">Nueva categoría</h1>
+        <hr>
         <form action="/apis/categorias.php" method="POST">
             <input type="hidden" name="dispatch" value="create">
             <input type="hidden" name="accion" class="form-control" id="exampleFormControlInput1" value="alta">

@@ -46,6 +46,8 @@
         <!-- filtro de busqueda -->
         <div class="container">
             <h1>Productos</h1>
+            <hr>
+            <h4>Filtrar por</h4>
             <div>
                 <form action="productos.php" method="GET">
                     <div class="form-row align-items-center">

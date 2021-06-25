@@ -9,6 +9,8 @@
     }
     
     function menu() {
+        $carrito = new Carrito();
+        
 ?>
 <!--Menu-->
 <header>
@@ -74,12 +76,13 @@
             <?php if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']): ?>
                 <div class="nav-item ml-2">
                     <ul class="navbar-nav mr-auto">
-                    
-                        <?php if($_SESSION["rol"] == "USER") {?>
                         <li class="nav-item active red">
-                            <a href="/user/carrito.php" class="btn-danger btn"><i class="fas fa-shopping-cart"></i> 5</a>
+                            <?php if ($carrito->get_cant_items() > 0):?>
+                                <a href="/user/carrito.php" class="btn-danger btn"><i class="fas fa-shopping-cart"></i> <?php echo $carrito->get_cant_items();?></a>
+                            <?php else: ?>
+                                <a href="/user/carrito.php" class="btn-primary btn"><i class="fas fa-shopping-cart"></i></a>
+                            <?php endif; ?> 
                         </li>
-                        <?php }?>
                         <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i> <?php echo $_SESSION['usuario'] ?></a>
                             <div class="dropdown-menu">
@@ -92,7 +95,11 @@
                 <div class="nav-item dropleft">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active red">
-                            <a href="/user/carrito.php" class="btn-danger btn"><i class="fas fa-shopping-cart"></i> 5</a>
+                            <?php if ($carrito->get_cant_items() > 0):?>
+                                <a href="/user/carrito.php" class="btn-danger btn"><i class="fas fa-shopping-cart"></i> <?php echo $carrito->get_cant_items();?></a>
+                            <?php else: ?>
+                                <a href="/user/carrito.php" class="btn-primary btn"><i class="fas fa-shopping-cart"></i></a>
+                            <?php endif; ?> 
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="login.php" role="button"><i class="fas fa-user-lock"></i> Ingresar</a>

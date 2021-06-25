@@ -34,6 +34,7 @@
         
     <main class="container mt-5">
         <h1 class="text-center">Alta, baja y modificación de ofertas</h1>
+        <hr>
         <p><a href="/admin/ofertas_alta.php" class="btn btn-secondary"><i class="fas fa-plus-circle"></i> Nueva oferta</a></p>
         <p><input id="myInput" type="text" placeholder="Búsqueda rápida" class="form-control"></p>
         <?php if (!$resultado): ?>

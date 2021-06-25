@@ -9,51 +9,67 @@
     <?php include('../inc/menu.php'); ?>
     <?php include('../inc/footer.php'); ?>
     <?php include('../inc/conexion.php'); ?>
-
-
-
-
-    
 </head>
 <body >
     
     <?php 
-        menu();
+        if(empty($_GET["id"])){
+            header("Location:/error.html");
+            exit;
+        } else {
+            $oferId = filter_var($_GET["id"], FILTER_SANITIZE_STRING);
+            
+            $queryOfertas = "select * from ofertas where id = '$oferId'";
+            $ofertasResult = pg_query($queryOfertas) or header("Location:/error.html");
+            $oferta = pg_fetch_assoc($ofertasResult);
+            $ofertaid = $oferta['id'];
+            $queryProductosOut = "select * from productos where id not in (select productoid from productos_ofertas where ofertaid = $ofertaid )";
+            $productosOutResult = pg_query($queryProductosOut) or header("Location:/error.html");
 
-        $resultado = pg_query("SELECT * FROM productos");
+            $queryProductosIn = "select * from productos where id in (select productoid from productos_ofertas where ofertaid = $ofertaid )";
+            $productosInResult = pg_query($queryProductosIn) or header("Location:/error.html");
+
+            pg_close($db);
+        }
+
     ?>
         
-    <main class="container mt-5">
+        <main class="container mt-5">
         <h1 class="text-center">Nueva oferta</h1>
         <hr>
         <form action="/apis/ofertas.php" method="POST">
-            <input type="hidden" name="dispatch" id="exampleFormControlInput1" value="create">
+            <input type="hidden" name="dispatch" id="exampleFormControlInput1" value="update">
+            <input type="hidden" name="oferId" id="exampleFormControlInput1" value="<?php echo $oferta['id']?>">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre de la oferta</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre">
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" value="<?php echo $oferta['nombre']?>" required>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Descripción</label>
-                <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3"><?php echo $oferta['descripcion']?></textarea>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect2">Seleccione los productos de la oferta</label>
                 <select id="distriList" name="distriList" multiple="multiple" class="form-control" >
-                    <?php 
-                        while ($fila = pg_fetch_assoc($resultado)) {
-                            echo "<option value='".$fila['id']."'>".$fila['nombre']."</option>";
-                        }
+                        <?php 
+                            while ($fila = pg_fetch_assoc($productosOutResult)) {
+                                echo "<option value='".$fila['id']."'>".$fila['nombre']."</option>";
+                            }
                         ?>
                 </select>
                 <a href="javascript:void(0);" id="addPop">Agregar</a>
                 <select id="selectDistriList" name="productos[]" multiple="multiple" class="form-control" >
-                    
+                        <?php 
+                            while ($fila = pg_fetch_assoc($productosInResult)) {
+                                echo "<option value='".$fila['id']."'>".$fila['nombre']."</option>";
+                            }
+                        ?>
                 </select>
                 <a href="javascript:void(0);" id="removePop">Suprimir</a>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Precio</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" name="precio" >
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="precio" value="<?php echo $oferta['precio']?>" require>
             </div>
             <div class="form-group">
                 <label for="estadoCategoria">Estado</label>
@@ -64,7 +80,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre de la imagen</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" name="imagen" >
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="imagen" value="<?php echo $oferta['imagen']?>" >
             </div>
             <div class="form-group">
                 <button class="btn btn-primary"><i class="fas fa-plus-circle"></i> Agregar</button>

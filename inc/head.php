@@ -1,7 +1,8 @@
 <?php
     session_start();
 
-
+    include('poo.php');
+    
     function urlRecursos() {
         if (isset($_ENV["URL_RECURSOS"])) {
             return $_ENV["URL_RECURSOS"];

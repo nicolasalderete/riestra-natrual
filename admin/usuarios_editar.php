@@ -48,6 +48,7 @@
         
     <main class="container mt-5">
         <h1 class="text-center">Modificar usuario</h1>
+        <hr>
         <form action="/apis/usuarios.php" method="POST">
             <input type="hidden" name="dispatch" id="exampleFormControlInput1" value="update">
             <input type="hidden" name="userId" id="exampleFormControlInput1" value="<?php echo $fila['id']?>">

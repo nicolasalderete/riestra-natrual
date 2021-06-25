@@ -1,5 +1,7 @@
 <?php
     session_start();
+
+    include('../inc/poo.php');
     include('../inc/conexion.php');
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -28,10 +30,14 @@
     
                 $resultado = pg_query("SELECT nombre as nombre,  apellido as apellido, rol as rol FROM usuarios WHERE usuario = '$username'");
                 $fila = pg_fetch_array($resultado);
-    
+
                 $_SESSION["usuario"] = $fila['nombre']. " " .$fila['apellido'];
                 $_SESSION["loggedIn"] = true;
                 $_SESSION["rol"] = $fila['rol'];
+
+                $_SESSION["carrito"] = serialize(new Carrito());
+
+
                 $Message = "Bienvenido ".$_SESSION["usuario"]. "";
                 header("Location:/?success={$Message}");
             } else {
