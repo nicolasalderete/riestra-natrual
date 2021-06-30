@@ -29,7 +29,7 @@
         } else {
             $prodId = filter_var($_GET["id"], FILTER_SANITIZE_STRING);
             
-            $queryProducto = "select * from productos where id = '$prodId'";
+            $queryProducto = "select * from productos where id = $prodId";
             $productoResult = pg_query($queryProducto) or header("Location:/error.html");
 
             $fila = pg_fetch_assoc($productoResult);
@@ -53,13 +53,13 @@
                 <img src="<?php echo urlRecursos()."/producto/".$fila['imagen'].""?>" alt="<?php echo $fila['nombre'];?>">
                 </div>
                 <div class="col-md-8">
-                <div class="card-body">
-                    <h1 class="card-title"><?php echo $fila['nombre'];?></h1>
-                    <h2 class="card-text"><?php echo $fila['descripcion'];?></h2>
-                    <p class="card-text"><small class="text-muted"><?php echo $categoria['nombre'];?></small></p>
-                    <p class="card-text"><small class="text-muted"><?php echo $categoria['descripcion'];?></small></p>
-                    <a href="/user/carrito.php" class="btn-secondary btn"><i class="fas fa-shopping-cart"></i> Agregar</a>
-                </div>
+                    <div class="card-body">
+                        <p class="card-text"><small class="text-muted"><?php echo $categoria['nombre'];?></small></p>
+                        <h1 class="card-title"><?php echo $fila['nombre'];?></h1>
+                        <h2 class="card-text">$ <?php echo $fila['precio'];?></h2>
+                        <h3 class="card-text"><?php echo $fila['descripcion'];?></h3>
+                        <a href="/carrito/cartAction.php?type=producto&action=addToCart&id=<?php echo $fila["id"]; ?>" class="btn-secondary btn"><i class="fas fa-shopping-cart"></i> Agregar</a>
+                    </div>
                 </div>
             </div>
             </div>

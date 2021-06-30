@@ -1,8 +1,8 @@
 <?php
-    if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
+    if (esUsuarioAdmin()) {
 
     } else {
-        header("location: desautorizado.html");
+        header("location:/desautorizado.html");
         exit;
     }
 ?>

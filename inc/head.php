@@ -1,7 +1,18 @@
 <?php
     session_start();
-
     include('poo.php');
+    $path = $_SERVER['DOCUMENT_ROOT'];
+    $path .= "../carrito/Cart.php";
+    include $path;
+    $cart = new Cart;
+
+    function esUsuarioAdmin() {
+        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
+            return $_SESSION['rol'] == "ADMIN";
+        } else {
+            return false;
+        }
+    }
     
     function urlRecursos() {
         if (isset($_ENV["URL_RECURSOS"])) {

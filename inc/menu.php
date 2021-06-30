@@ -1,16 +1,6 @@
 <?php
-
-    function esUsuarioAdmin() {
-        if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
-            return $_SESSION['rol'] == "ADMIN";
-        } else {
-            return false;
-        }
-    }
-    
     function menu() {
-        $carrito = new Carrito();
-        
+        $cart = new Cart;
 ?>
 <!--Menu-->
 <header>
@@ -77,10 +67,10 @@
                 <div class="nav-item ml-2">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active red">
-                            <?php if ($carrito->get_cant_items() > 0):?>
-                                <a href="/user/carrito.php" class="btn-danger btn"><i class="fas fa-shopping-cart"></i> <?php echo $carrito->get_cant_items();?></a>
+                            <?php if ($cart->total_items() > 0):?>
+                                <a href="/viewCart.php" class="btn-danger btn"><i class="fas fa-shopping-cart"></i> <?php echo $cart->total_items();?></a>
                             <?php else: ?>
-                                <a href="/user/carrito.php" class="btn-primary btn"><i class="fas fa-shopping-cart"></i></a>
+                                <a href="/viewCart.php" class="btn-primary btn"><i class="fas fa-shopping-cart"></i></a>
                             <?php endif; ?> 
                         </li>
                         <li class="nav-item dropdown active">
@@ -95,10 +85,10 @@
                 <div class="nav-item dropleft">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active red">
-                            <?php if ($carrito->get_cant_items() > 0):?>
-                                <a href="/user/carrito.php" class="btn-danger btn"><i class="fas fa-shopping-cart"></i> <?php echo $carrito->get_cant_items();?></a>
+                            <?php if ($cart->total_items() > 0):?>
+                                <a href="/viewCart.php" class="btn-danger btn"><i class="fas fa-shopping-cart"></i> <?php echo $cart->total_items();?></a>
                             <?php else: ?>
-                                <a href="/user/carrito.php" class="btn-primary btn"><i class="fas fa-shopping-cart"></i></a>
+                                <a href="/viewCart.php" class="btn-primary btn"><i class="fas fa-shopping-cart"></i></a>
                             <?php endif; ?> 
                         </li>
                         <li class="nav-item active">

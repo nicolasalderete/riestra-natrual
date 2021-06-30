@@ -1,6 +1,6 @@
 <?php
     session_start();
-
+    include '../carrito/Cart.php';
     include('../inc/poo.php');
     include('../inc/conexion.php');
 
@@ -30,19 +30,25 @@
     
                 $resultado = pg_query("SELECT nombre as nombre,  apellido as apellido, rol as rol FROM usuarios WHERE usuario = '$username'");
                 $fila = pg_fetch_array($resultado);
+                $cart = new Cart();
+
+                $_SESSION = array();
 
                 $_SESSION["usuario"] = $fila['nombre']. " " .$fila['apellido'];
                 $_SESSION["loggedIn"] = true;
                 $_SESSION["rol"] = $fila['rol'];
-
-                $_SESSION["carrito"] = serialize(new Carrito());
-
+                
+                if ($cart->total_items() > 0) {
+                    $_SESSION['cart_contents'] = $cart->get_cart();
+                }
 
                 $Message = "Bienvenido ".$_SESSION["usuario"]. "";
                 header("Location:/?success={$Message}");
+                exit;
             } else {
                 $Message = "Usuario y/o clave inválidos";
                 header("Location:/login.php?error={$Message}");
+                exit;
             }
         }
     }

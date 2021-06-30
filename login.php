@@ -293,6 +293,7 @@ input[type=password]:placeholder {
       <input type="text" name="username" id="inputEmail" class="fadeIn third" placeholder="Usuario" required autofocus>
       <input type="password" name="password" id="clave" class="fadeIn third" placeholder="Clave" required>
       <input type="submit" class="fadeIn fourth" value="Aceptar">
+      <p>Si no posee usuario <a href="/registro.php">Registrese</a></p>
     </form>
 
   </div>

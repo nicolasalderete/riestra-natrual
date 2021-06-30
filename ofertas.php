@@ -35,9 +35,10 @@
                         <img src="<?php echo $srcimagen; ?>" class="w-100" alt="<?php echo $fila['nombre']?>">
                     </div>
                     <div class="col-md-6 position-static p-4 pl-md-0">
-                        <h5 class="mt-0"><?php echo $fila['nombre']; ?></h5>
-                        <p><?php echo $fila['descripcion']; ?></p>
-                        <a href="/user/carrito.php" class="btn-secondary btn"><i class="fas fa-shopping-cart"></i> Agregar</a>
+                        <h2 class="mt-0"><?php echo $fila['nombre']; ?></h2>
+                        <h3><?php echo $fila['descripcion']; ?></h3>
+                        <h4>$ <?php echo $fila['precio']; ?></h4>
+                        <a href="/carrito/cartAction.php?type=oferta&action=addToCart&id=<?php echo $fila["id"]; ?>" class="btn-secondary btn"><i class="fas fa-shopping-cart"></i> Agregar</a>
                     </div>
                 </div>
                 <br>
